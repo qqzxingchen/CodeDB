@@ -1,0 +1,10 @@
+C:\ProgramData\VMware\VMware Player\Uninstaller\uninstall.exe
+C:\ProgramData\VMware\VMware Player\Uninstaller\module_ws.dll
+C:\ProgramData\VMware\VMware Player\Uninstaller\module_core.dll
+C:\ProgramData\VMware\VMware Player\Uninstaller\module_license.dll
+C:\ProgramData\icbc_data\Temp\UpdateService.exe
+C:\ProgramData\alipay\tmp\miser_rule\DeviceHealth_Ali.exe
+C:\ProgramData\Package Cache\840104A2546080B219D56900C44E75F786239BB9\packages\Preparation.exe
+C:\ProgramData\Package Cache\E33F355F5E83D93099A732E2ECE02E07818B2696\packages\SSCE40\SSCERuntime_x64-enu.exe
+C:\Windows\ADFS\cs\Microsoft.IdentityServer.Web.Resources.dll
+C:\Users\xingchen\Documents\Visual Studio 2012\Projects\PEViewer\Debug\PEViewer.exe

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>body{
+	background-color:rgb(117, 123, 89);
+    color:rgb(0,255,34);
+	font-family:微软雅黑;
+	font-size:16px;
+	margin:0;
+	padding:0;
+}
+#Navigation div 
+{
+    line-height:30px;
+    padding-left:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+#TranslateDiv div 
+{
+	height:30px;
+	line-height:30px;
+	width:100%;
+	text-align:center;
+}
+input[type="text"]
+{
+	width:180px;
+	font-family:微软雅黑;
+	font-weight: bold;
+}
+
+#TableDiv
+{
+    background-color:black;	
+	padding:20px;
+}
+
+table,tr,td,th {
+	border:1px rgb(130, 10, 0) solid;
+}
+caption 
+{
+	text-align:center;
+	font-size:18px;
+	color:rgb(0,255,3);
+}
+th
+{
+	text-align:center;
+	font-size:12px;
+	color:rgb(0,200,3);	
+	padding-top:8px;
+	padding-bottom:8px;
+}
+td{
+	color:rgb(0, 130, 3);
+	padding-top: 5px;
+	padding-bottom:5px;
+	padding-left:5px;
+}
+
+</style>
+<script>
+var PEFilePath = 'C:\\Users\\xingchen\\Documents\\Visual Studio 2012\\Projects\\PEViewer\\Debug\\PEViewer.exe';
+var PEBaseData = [{ name:'IMAGE_DOS_HEADER',title:'DOS头',value:[{name:'e_magic',value:23117,length:2,desc:'EXE 标志,MZ'},{name:'e_cblp',value:144,length:2,desc:'最后（部分）页中的字节数'},{name:'e_cp',value:3,length:2,desc:'文件中的全部和部分页数'},{name:'e_crlc',value:0,length:2,desc:'重定位表中的指针数'},{name:'e_cparhdr',value:4,length:2,desc:'头部尺寸，以段落为单位'},{name:'e_minalloc',value:0,length:2,desc:'所需的最小附加段'},{name:'e_maxalloc',value:65535,length:2,desc:'所需的最大附加段'},{name:'e_ss',value:0,length:2,desc:'初始的SS值'},{name:'e_sp',value:184,length:2,desc:'初始的SP值'},{name:'e_csum',value:0,length:2,desc:'补码校验值'},{name:'e_ip',value:0,length:2,desc:'初始的IP值'},{name:'e_cs',value:0,length:2,desc:'初始的CS值'},{name:'e_lfarlc',value:64,length:2,desc:'重定位表的字节偏移量'},{name:'e_ovno',value:0,length:2,desc:'覆盖号'},{name:'e_res',value:"0000",length:8,desc:'保留字'},{name:'e_oemid',value:0,length:2,desc:'OEM标示符'},{name:'e_oeminfo',value:0,length:2,desc:'OEM信息'},{name:'e_res2',value:"0000000000",length:20,desc:'保留字'},{name:'e_lfanew',value:248,length:4,desc:'PE头相对于文件开始处的偏移地址'}]},{ name:'IMAGE_FILE_HEADER',title:'NT标准头',value:[{name:'Machine',value:332,length:2,desc:'运行平台：Intel 386 处理器或后续兼容处理器'},{name:'NumberOfSections',value:7,length:2,desc:'节的数量（IMAGE_SECTION_HEADER的个数）'},{name:'TimeDateStamp',value:1421236511,length:4,desc:'文件创建日期和时间'},{name:'PointerToSymbolTable',value:0,length:4,desc:'指向符号表（用于调试，没有则为0）'},{name:'NumberOfSymbols',value:0,length:4,desc:'符号表中的符号数量（用于调试，没有则为0）'},{name:'SizeOfOptionalHeader',value:224,length:2,desc:'扩展头结构的长度（0x00E0 == 32位PE文件，0x00F0 == 64位PE文件）'},{name:'Characteristics',value:258,length:2,desc:'文件属性：文件是可执行的、只在32位平台上运行'}]},{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NT扩展头',value:[{name:'Magic',value:267,length:2,desc:'魔术字，说明文件的类型(107H == ROM 镜像；10BH == PE32；20BH == PE64)'},{name:'MajorLinkerVersion',value:11,length:1,desc:'链接器主版本号'},{name:'MinorLinkerVersion',value:0,length:1,desc:'链接器副版本号'},{name:'SizeOfCode',value:60416,length:4,desc:'所有含代码的节的总大小（基于文件对齐）'},{name:'SizeOfInitializedData',value:38400,length:4,desc:'所有含已初始化数据的节的总大小'},{name:'SizeOfUninitializedData',value:0,length:4,desc:'所有含未初始化数据的节的总大小（在文件中不占用空间，但是在被加载到内存之后，PE加载程序将会为这些数据分配适当的空间）'},{name:'AddressOfEntryPoint',value:70257,length:4,desc:'程序执行入口RVA（记录了启动代码距离该PE加载后的起始位置到底多少个字节。对于程序映像，它是启动地址；对于设备驱动程序，它是初始化函数的地址；对于DLL来说，它是可选的，如果不存在需要设置为0）'},{name:'BaseOfCode',value:4096,length:4,desc:'代码的节的起始RVA（表示映像被加载到内存中后，代码节的开头相对于映像基址的偏移地址）'},{name:'BaseOfData',value:4096,length:4,desc:'数据的节的起始RVA（表示映像被加载到内存中后，数据节的开头相对于映像基址的偏移地址）'},{name:'ImageBase',value:4194304,length:4,desc:'PE映像的优先装入地址（EXE文件总是可以以这个位置装入；但是如果一个程序引入了多个DLL文件，则DLL实际装入地址与该值可能就会不同；该值必须是64K的整数倍）'},{name:'SectionAlignment',value:4096,length:4,desc:'内存中的节的对齐粒度'},{name:'FileAlignment',value:512,length:4,desc:'文件中的节的对齐粒度'},{name:'MajorOperatingSystemVersion',value:6,length:2,desc:'操作系统主版本号'},{name:'MinorOperatingSystemVersion',value:0,length:2,desc:'操作系统副版本号'},{name:'MajorImageVersion',value:0,length:2,desc:'该PE主版本号'},{name:'MinorImageVersion',value:0,length:2,desc:'该PE副版本号'},{name:'MajorSubsystemVersion',value:6,length:2,desc:'所需子系统的主版本号'},{name:'MinorSubsystemVersion',value:0,length:2,desc:'所需子系统的副版本号'},{name:'Win32VersionValue',value:'',length:4,desc:'子系统版本的值（未用，必须设置为0）'},{name:'SizeOfImage',value:176128,length:4,desc:'内存中整个PE的映像尺寸（可以比实际的值大，但不能比它小，且必须保证它是SectionAlignment的整数倍）'},{name:'SizeOfHeaders',value:1024,length:4,desc:'所有头+节表按照文件对齐粒度对齐后的大小'},{name:'CheckSum',value:0,length:4,desc:'校验和（大多数PE文件中，该值是0；但在一些内核模式的驱动程序和系统DLL中，它必须存在且有效）'},{name:'Subsystem',value:2,length:2,desc:'指定使用界面的子系统：Windows 图形用户界面'},{name:'DllCharacteristics',value:33088,length:2,desc:'DLL文件特性（不是针对DLL文件的，而是针对所有PE文件的）：DLL可以在加载时被重定位、该映像兼容DEP、可用于终端服务器'},{name:'SizeOfStackReserve',value:1048576,length:4,desc:'初始化的栈大小'},{name:'SizeOfStackCommit',value:4096,length:4,desc:'初始化时实际提交的栈大小的栈大小'},{name:'SizeOfHeapReserve',value:1048576,length:4,desc:'初始化时保留的堆大小'},{name:'SizeOfHeapCommit',value:4096,length:4,desc:'初始化时实际提交的堆大小'},{name:'LoaderFlags',value:0,length:4,desc:'加载标志'},{name:'NumberOfRvaAndSizes',value:16,length:4,desc:'数据目录结构的项目数量'}]},{ name:'IMAGE_OPTIONAL_HEADER::DATA_DIRECTORY',title:'数据目录项',value:[{name:'导出表(.edata)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'导出表(.edata)'},{name:'导入表(.idata)',valueRVA:155648,valueFOA:77824,valueTableSize:120,length:4,desc:'导入表(.idata)'},{name:'资源表(.rsrc)',valueRVA:159744,valueFOA:81920,valueTableSize:5792,length:4,desc:'资源表(.rsrc)'},{name:'异常表(.pdata)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'异常表(.pdata)'},{name:'安全表(文件偏移)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'安全表(文件偏移)'},{name:'重定位表(.reloc)',valueRVA:167936,valueFOA:88064,valueTableSize:4168,length:4,desc:'重定位表(.reloc)'},{name:'调试表(.debug)',valueRVA:133152,valueFOA:63520,valueTableSize:56,length:4,desc:'调试表(.debug)'},{name:'版权表(必须为0)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'版权表(必须为0)'},{name:'全局指针表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'全局指针表'},{name:'线程本地存储表(.tls)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'线程本地存储表(.tls)'},{name:'加载配置表',valueRVA:143816,valueFOA:74184,valueTableSize:64,length:4,desc:'加载配置表'},{name:'绑定导入表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'绑定导入表'},{name:'IAT表',valueRVA:156456,valueFOA:78632,valueTableSize:688,length:4,desc:'IAT表'},{name:'延迟导入表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'延迟导入表'},{name:'CLR表(.cormeta)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'CLR表(.cormeta)'},{name:'预留类型',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'预留类型'}]}];
+var PESectionData = [{ name:'IMAGE_SECTION_HEADER[0]',title:'节表[0]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.textbss'},{name:'VirtualSize',value:65536,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:4096,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:0,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:0,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:3758096544,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[1]',title:'节表[1]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.text'},{name:'VirtualSize',value:60054,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:69632,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:60416,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:1024,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1610612768,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[2]',title:'节表[2]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.rdata'},{name:'VirtualSize',value:15864,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:131072,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:15872,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:61440,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1073741888,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[3]',title:'节表[3]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.data'},{name:'VirtualSize',value:7101,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:147456,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:512,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:77312,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:3221225536,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[4]',title:'节表[4]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.idata'},{name:'VirtualSize',value:3635,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:155648,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:4096,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:77824,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:3221225536,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[5]',title:'节表[5]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.rsrc'},{name:'VirtualSize',value:5792,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:159744,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:6144,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:81920,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1073741888,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[6]',title:'节表[6]',value:[{name:'Name',value:12774392,length:8,desc:'8字节节名：.reloc'},{name:'VirtualSize',value:4929,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:167936,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:5120,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:88064,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1107296320,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]}];
+var PEImportData = [{name:'KERNEL32.dll',value:[{hint:1288,name:'SetFilePointer'},{hint:1521,name:'WriteFile'},{hint:142,name:'CloseHandle'},{hint:618,name:'GetLastError'},{hint:845,name:'HeapAlloc'},{hint:849,name:'HeapFree'},{hint:698,name:'GetProcessHeap'},{hint:641,name:'GetModuleHandleW'},{hint:1559,name:'lstrcpyW'},{hint:1112,name:'ReadFile'},{hint:1501,name:'WideCharToMultiByte'},{hint:785,name:'GetTickCount64'},{hint:756,name:'GetSystemTimeAsFileTime'},{hint:552,name:'GetCurrentThreadId'},{hint:1084,name:'QueryPerformanceCounter'},{hint:904,name:'IsProcessorFeaturePresent'},{hint:899,name:'IsDebuggerPresent'},{hint:316,name:'EncodePointer'},{hint:279,name:'DecodePointer'},{hint:214,name:'CreateFileW'},{hint:1004,name:'MultiByteToWideChar'},{hint:198,name:'CreateDirectoryW'}]},{name:'USER32.dll',value:[{hint:839,name:'UnregisterHotKey'},{hint:697,name:'SendMessageW'},{hint:161,name:'DefWindowProcW'},{hint:622,name:'PostQuitMessage'},{hint:546,name:'LoadIconW'},{hint:544,name:'LoadCursorW'},{hint:266,name:'FindWindowW'},{hint:308,name:'GetCursorPos'},{hint:587,name:'MessageBoxW'},{hint:494,name:'InvalidateRect'},{hint:234,name:'EndPaint'},{hint:14,name:'BeginPaint'},{hint:722,name:'SetForegroundWindow'},{hint:821,name:'TrackPopupMenu'},{hint:10,name:'AppendMenuW'},{hint:9,name:'AppendMenuA'},{hint:171,name:'DestroyMenu'},{hint:110,name:'CreatePopupMenu'},{hint:425,name:'GetSystemMetrics'},{hint:533,name:'IsWindowVisible'},{hint:728,name:'SetLayeredWindowAttributes'},{hint:796,name:'ShowWindow'},{hint:113,name:'CreateWindowExW'},{hint:655,name:'RegisterHotKey'},{hint:182,name:'DispatchMessageW'},{hint:827,name:'TranslateMessage'},{hint:371,name:'GetMessageW'},{hint:672,name:'RegisterWindowMessageW'},{hint:886,name:'wsprintfW'},{hint:885,name:'wsprintfA'},{hint:647,name:'RegisterClassW'},{hint:851,name:'UpdateWindow'},{hint:621,name:'PostMessageW'}]},{name:'GDI32.dll',value:[{hint:557,name:'GetStockObject'},{hint:779,name:'TextOutW'}]},{name:'SHELL32.dll',value:[{hint:32,name:'DragQueryFileW'},{hint:318,name:'Shell_NotifyIconW'}]},{name:'MSVCR110D.dll',value:[{hint:438,name:'__crtGetShowWindowMode'},{hint:659,name:'_except_handler4_common'},{hint:606,name:'_controlfp_s'},{hint:813,name:'_invoke_watson'},{hint:1099,name:'_onexit'},{hint:446,name:'__dllonexit'},{hint:584,name:'_calloc_dbg'},{hint:1297,name:'_unlock'},{hint:931,name:'_lock'},{hint:442,name:'__crtSetUnhandledExceptionFilter'},{hint:317,name:'?terminate@@YAXXZ'},{hint:443,name:'__crtTerminateProcess'},{hint:444,name:'__crtUnhandledException'},{hint:621,name:'_crt_debugger_hook'},{hint:602,name:'_commode'},{hint:696,name:'_fmode'},{hint:545,name:'_acmdln'},{hint:807,name:'_initterm'},{hint:808,name:'_initterm_e'},{hint:519,name:'__setusermatherr'},{hint:603,name:'_configthreadlocale'},{hint:839,name:'_ismbblead'},{hint:585,name:'_cexit'},{hint:371,name:'_CrtSetCheckCount'},{hint:354,name:'_CrtDbgReportW'},{hint:668,name:'_exit'},{hint:1114,name:'_purecall'},{hint:113,name:'??2@YAPAXI@Z'},{hint:1674,name:'strlen'},{hint:1677,name:'strncmp'},{hint:1629,name:'memset'},{hint:1678,name:'strncpy'},{hint:115,name:'??3@YAXPAX@Z'},{hint:1666,name:'strcmp'},{hint:1729,name:'wcslen'},{hint:410,name:'__CxxFrameHandler3'},{hint:112,name:'??1type_info@@UAE@XZ'},{hint:401,name:'_XcptFilter'},{hint:517,name:'__set_app_type'},{hint:562,name:'_amsg_exit'},{hint:454,name:'__getmainargs'},{hint:1533,name:'exit'}]}];
+var PEExportData = [];
+// 为Number添加一个原型方法
+Number.prototype.toFormatString = function ( base,length ) {   // 转化为达到length长度的字符串，如果不够，则前补零(base为将要转换的进制数)
+    if (!base)
+        base = 16;
+    var temp = this.toString(base);
+    if (!length)
+        length = temp.length;
+    while (temp.length < length) {
+        temp = '0' + temp;
+    }
+    return temp.toUpperCase();
+}
+
+Date.prototype.toFormatString = function ( formatString ){
+    var year = this.getFullYear();
+    var month = this.getMonth() + 1;
+    var day = this.getDate();
+    var hour = this.getHours();
+    var minute = this.getMinutes();
+    var second = this.getSeconds();
+    
+    var str = '';
+    if ( !formatString )
+        formatString = 'y-m-d h:M:s';
+    for ( var i = 0 ; i < formatString.length ; i ++ ){
+        switch(formatString.charAt(i)){
+        case 'y':   str += Number(year).toFormatString(10,2);  break;
+        case 'm':   str += Number(month).toFormatString(10, 2); break;
+        case 'd':   str += Number(day).toFormatString(10, 2); break;
+        case 'h':   str += Number(hour).toFormatString(10, 2); break;
+        case 'M':   str += Number(minute).toFormatString(10, 2); break;
+        case 's':   str += Number(second).toFormatString(10, 2); break;
+        case '-':
+        case ':':
+        case ' ':
+            str += formatString.charAt(i);
+        }
+    }
+    return str;
+}
+
+
+// 取得节的开始地址和大小
+function SectionInfo(){};
+SectionInfo.prototype.sectionInfo = []; 
+SectionInfo.prototype.init = function(sectionData){
+    var data = sectionData ? sectionData : PESectionData;
+    for ( var i = 0 ; i < data.length ; i ++ ){
+        var section = data[i]['value'];
+        var va,fa,size;
+        for ( var j = 0 ; j < section.length ; j ++ ){
+            if ( section[j]['name'] == 'VirtualAddress' )
+                va = section[j]['value'];
+            if ( section[j]['name'] == 'SizeOfRawData' )
+                size = section[j]['value'];
+            if ( section[j]['name'] == 'PointerToRawData' )
+                fa = section[j]['value'];    
+        }
+        this.sectionInfo.push( { virtualAddress:va,size:size,fileAddress:fa } );
+    }
+}
+SectionInfo.prototype.rvaToFoa = function( rva ){
+	for( var i=0 ; i<this.sectionInfo.length ; i++){
+	    if ( rva >= this.sectionInfo[i]['virtualAddress'] && 
+	            rva <= this.sectionInfo[i]['virtualAddress'] + this.sectionInfo[i]['size'] )			
+			return rva-this.sectionInfo[i]['virtualAddress']+this.sectionInfo[i]['fileAddress'];
+	}
+    return -1;
+}
+
+var sectionInfo = new SectionInfo();
+sectionInfo.init();
+
+function transRVAToFoa(){
+    var value = document.getElementById('RVA').value;
+    document.getElementById('RVA').value = value.toUpperCase();
+    
+    var foa = sectionInfo.rvaToFoa( parseInt( value,16 ) );
+    document.getElementById('FOA').value = ( foa == -1 ) ? 'Can not found in Section' : '0x ' + foa.toFormatString(16);
+}
+function translateTimeStamp( timeStamp ){
+    var date = new Date( timeStamp * 1000 );
+    return date.toFormatString( 'y-m-d h:M:s' );
+}
+
+var headHeight = 30;
+var leftWidth = 280;
+
+window.onload = function (){   
+
+    var sectionTranslateDiv = document.createElement('div');
+    sectionTranslateDiv.id = 'TranslateDiv';
+    sectionTranslateDiv.innerHTML = '<div>'+ PEFilePath + '</div>';
+
+    var navigation = document.createElement('div');
+    navigation.id = 'Navigation';
+    navigation.style.width = leftWidth + 'px';
+    navigation.style.float = 'left';
+    navigation.innerHTML += '<div>' +
+                                '<label for="RVA">RVA：</label>' +
+                                '<input type="text" id="RVA" name="RVA" onkeyup="transRVAToFoa()">' +
+                            '</div>';
+    navigation.innerHTML += '<div style="margin-bottom:20px;">' +
+                                '<label for="FOA">FOA：</label>' +
+                                '<input type="text" id="FOA" name="FOA" readonly="readonly">' +
+                            '</div>';
+
+    var tableContainer = document.createElement('div');
+    tableContainer.id = 'TableDiv';
+    tableContainer.style.overflowY = 'scroll';
+    tableContainer.style.overflowX = 'hidden';
+
+    document.body.appendChild(sectionTranslateDiv);
+    document.body.appendChild(navigation);
+    document.body.appendChild(tableContainer);
+    
+    onResize();
+    window.onresize = onResize;
+    
+    for (var i = 0 ; i < PEBaseData.length ; i++)
+    {
+		showBaseData( PEBaseData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+    for (var i = 0 ; i < PESectionData.length ; i++)
+    {
+		showBaseData( PESectionData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+	if (PEImportData.length != 0)
+	{
+	    showImportData(PEImportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	if (PEExportData.length != 0)
+	{
+	    showExportData(PEExportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	
+	initNavigation();
+
+
+    function onResize(){
+        sectionTranslateDiv.style.width = window.innerWidth.toString() + 'px';
+        sectionTranslateDiv.style.height = headHeight+'px';
+        navigation.style.height = Number(window.innerHeight - headHeight).toString() + 'px';
+
+        tableContainer.style.width = '0px';
+        tableContainer.style.height = '0px';
+        tableContainer.style.display = 'none';
+
+        setTimeout(function () {
+            tableContainer.style.width = Number(window.innerWidth - 40 - leftWidth).toString() + 'px';
+            tableContainer.style.height = Number(window.innerHeight - headHeight - 40).toString() + 'px';
+            tableContainer.style.display = 'block';
+        }, 0);
+    }
+}
+function initNavigation() {
+    var tableDiv = document.getElementById('TableDiv');
+    var navigation = document.getElementById('Navigation');
+    var navi = [];
+    for (var i = 0 ; i < tableDiv.children.length ; i++)
+        if (tableDiv.children[i].tagName.toLowerCase() == 'table') {
+
+            var element = tableDiv.children[i].children[0];
+            var str = (element.title) ? element.title : element.innerHTML;
+            navi[str] = tableDiv.children[i];
+
+            var divNode = document.createElement('div');
+            divNode.appendChild(document.createTextNode(str));
+            navigation.appendChild(divNode);
+        }
+    navigation.onclick = function (event) {
+        var str = (event.srcElement.title) ? event.srcElement.title : event.srcElement.innerHTML;
+        navi[str] && navi[str].scrollIntoView();
+    }
+}
+
+function showBaseData(data,container){
+	var table = document.createElement('table');
+	container.appendChild( table );
+	
+	table.cellSpacing = 0;
+	table.width = '100%';
+	
+	// 标题
+	var caption = document.createElement('caption');
+    caption.appendChild(document.createTextNode( data['name'] )); 
+    caption.title = data['title'];
+
+	var tbody = document.createElement('tbody');
+
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	tbody.insertRow(0);		
+	
+	var row, cell;
+
+	var i,j;
+	for ( i = 0 ; i < data['value'].length ; i ++ ){
+	    row = tbody.insertRow();
+
+		j = 0 ;
+		for ( var prop in data['value'][i] ){
+		
+			var str = data['value'][i][prop];
+			
+			// 转换以value开头的字符串
+			var addr = prop.indexOf('value');
+			if ( addr >= 0 && (typeof str === 'number') ){
+			    var detail = prop.slice(5);
+			    var length = data['value'][i]['length'];
+			    if ( detail.length == 0 )
+			        str = '0x ' + parseInt(str, 10).toFormatString(16,length );
+	            else
+			        str = detail + '：' + '0x ' + parseInt(str, 10).toFormatString(16, length);
+			}
+			
+			// 定位 TimeDateStamp ， 转换时间戳为确定的时间
+			if ( prop == 'desc' && data['value'][i]['name'] == 'TimeDateStamp' ){
+			    str += '：' + translateTimeStamp( parseInt( data['value'][i]['value'],10 ) );
+			}
+			
+			j++;
+			row.insertCell().appendChild( document.createTextNode( str ) );
+		}
+		row.cells[row.cells.length-1].title = row.cells[ 0 ].innerHTML + '：' + row.cells[ 1 ].innerHTML;
+	}
+	
+	// 插入表头
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	var th4 = document.createElement('th');
+
+	th1.appendChild( document.createTextNode('属性名') );
+	th2.appendChild( document.createTextNode('属性值') );
+	th3.appendChild( document.createTextNode('变量长度') );
+	th4.appendChild( document.createTextNode('备注') );	
+    th1.width = '15%';
+    th2.width = Number((j-3)*15).toString() + '%';
+	th2.colSpan = Number(j-3).toString() ;
+	th3.width = '10%';
+	
+	tbody.rows[0].appendChild( th1 );
+	tbody.rows[0].appendChild( th2 );
+	tbody.rows[0].appendChild( th3 );
+	tbody.rows[0].appendChild( th4 );
+}		
+
+function showImportData(data,container){
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+	var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+	table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode( '导入表' )); 
+
+    container.appendChild( table );
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	var cell;
+	var row;
+
+	row = tbody.insertRow();
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	th1.appendChild(document.createTextNode('模块名'));
+	th2.appendChild(document.createTextNode('函数编号'));
+	th3.appendChild(document.createTextNode('函数名'));
+	row.appendChild(th1);
+	row.appendChild(th2);
+	row.appendChild(th3);
+
+
+	for (var i = 0 ; i < data.length ; i++) {
+	    var length = data[i]['value'].length;
+
+        row = tbody.insertRow();
+        cell = row.insertCell();
+        cell.rowSpan = length;
+	    cell.appendChild(document.createTextNode(data[i]['name']));
+	    
+	    var moduleName = data[i]['name'];
+
+	    for (var j = 0 ; j < length ; j++) {
+            if ( j != 0 )
+    	        row = tbody.insertRow();
+
+	        for (var prop in data[i]['value'][j]) {
+	            var str = data[i]['value'][j][prop];
+	            if (typeof str === 'number') {
+	                str = '0x ' + parseInt(str, 10).toFormatString(16);
+	            }
+	            row.insertCell().appendChild(document.createTextNode(str));
+	        }
+	        row.cells[row.cells.length - 1].title = moduleName;
+	    }
+	}
+}
+
+function showExportData(data, container) {
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+    var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+    table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode('导出表 : ' + data[0]['name']));
+
+    container.appendChild(table);
+    table.appendChild(caption);
+    table.appendChild(tbody);
+
+    var row;
+
+    row = tbody.insertRow();
+    var th1 = document.createElement('th');
+    var th2 = document.createElement('th');
+    th1.appendChild(document.createTextNode('函数编号'));
+    th2.appendChild(document.createTextNode('函数名'));
+    row.appendChild(th1);
+    row.appendChild(th2);
+
+    for (var i = 0 ; i < data[0]['value'].length ; i++) {
+        row = tbody.insertRow();
+
+        for (var prop in data[0]['value'][i]) {
+            var str = data[0]['value'][i][prop];
+            if (typeof str === 'number') {
+                str = '0x ' + parseInt(str, 10).toFormatString(16);
+            }
+            row.insertCell().appendChild(document.createTextNode(str));
+        }
+    }
+}
+</script>
+<head>
+<body>
+</body>
+</html>

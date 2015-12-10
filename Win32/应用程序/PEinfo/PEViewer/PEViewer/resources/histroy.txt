@@ -1,0 +1,10 @@
+C:\Users\xingchen\Documents\Visual Studio 2012\Projects\PEViewer\Debug\PEViewer.exe
+C:\Program Files (x86)\Google\Chrome\Application\old_chrome.exe
+C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+E:\工具\一款超级强悍的截图软件.exe
+C:\Windows\system32\snmpapi.dll
+C:\Windows\WinSxS\wow64_microsoft-windows-ntdll_31bf3856ad364e35_6.3.9600.17278_none_53f8a1050479da6a\ntdll.dll
+C:\Windows\SysWOW64\ntdll.dll
+C:\Windows\System32\kernel32.dll
+C:\Users\pan\Documents\QT5WorkSpace\DebugPackage\Note.exe
+C:\Users\pan\Downloads\Desktops.exe

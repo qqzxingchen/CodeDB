@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>body{
+	background-color:rgb(117, 123, 89);
+    color:rgb(0,255,34);
+	font-family:微软雅黑;
+	font-size:16px;
+	margin:0;
+	padding:0;
+}
+#Navigation div 
+{
+    line-height:30px;
+    padding-left:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+#TranslateDiv div 
+{
+	height:30px;
+	line-height:30px;
+	width:100%;
+	text-align:center;
+}
+input[type="text"]
+{
+	width:180px;
+	font-family:微软雅黑;
+	font-weight: bold;
+}
+
+#TableDiv
+{
+    background-color:black;	
+	padding:20px;
+}
+
+table,tr,td,th {
+	border:1px rgb(130, 10, 0) solid;
+}
+caption 
+{
+	text-align:center;
+	font-size:18px;
+	color:rgb(0,255,3);
+}
+th
+{
+	text-align:center;
+	font-size:12px;
+	color:rgb(0,200,3);	
+	padding-top:8px;
+	padding-bottom:8px;
+}
+td{
+	color:rgb(0, 130, 3);
+	padding-top: 5px;
+	padding-bottom:5px;
+	padding-left:5px;
+}
+
+</style>
+<script>
+var PEFilePath = 'C:\\Users\\xingchen\\Downloads\\V8UITest\\V8UITest\\Debug\\v8.dll';
+var PEBaseData = [{ name:'IMAGE_DOS_HEADER',title:'DOS头',value:[{name:'e_magic',value:23117,length:2,desc:'EXE 标志,MZ'},{name:'e_cblp',value:144,length:2,desc:'最后（部分）页中的字节数'},{name:'e_cp',value:3,length:2,desc:'文件中的全部和部分页数'},{name:'e_crlc',value:0,length:2,desc:'重定位表中的指针数'},{name:'e_cparhdr',value:4,length:2,desc:'头部尺寸，以段落为单位'},{name:'e_minalloc',value:0,length:2,desc:'所需的最小附加段'},{name:'e_maxalloc',value:65535,length:2,desc:'所需的最大附加段'},{name:'e_ss',value:0,length:2,desc:'初始的SS值'},{name:'e_sp',value:184,length:2,desc:'初始的SP值'},{name:'e_csum',value:0,length:2,desc:'补码校验值'},{name:'e_ip',value:0,length:2,desc:'初始的IP值'},{name:'e_cs',value:0,length:2,desc:'初始的CS值'},{name:'e_lfarlc',value:64,length:2,desc:'重定位表的字节偏移量'},{name:'e_ovno',value:0,length:2,desc:'覆盖号'},{name:'e_res',value:"0000",length:8,desc:'保留字'},{name:'e_oemid',value:0,length:2,desc:'OEM标示符'},{name:'e_oeminfo',value:0,length:2,desc:'OEM信息'},{name:'e_res2',value:"0000000000",length:20,desc:'保留字'},{name:'e_lfanew',value:248,length:4,desc:'PE头相对于文件开始处的偏移地址'}]},{ name:'IMAGE_FILE_HEADER',title:'NT标准头',value:[{name:'Machine',value:332,length:2,desc:'运行平台：Intel 386 处理器或后续兼容处理器'},{name:'NumberOfSections',value:4,length:2,desc:'节的数量（IMAGE_SECTION_HEADER的个数）'},{name:'TimeDateStamp',value:1316669090,length:4,desc:'文件创建日期和时间'},{name:'PointerToSymbolTable',value:0,length:4,desc:'指向符号表（用于调试，没有则为0）'},{name:'NumberOfSymbols',value:0,length:4,desc:'符号表中的符号数量（用于调试，没有则为0）'},{name:'SizeOfOptionalHeader',value:224,length:2,desc:'扩展头结构的长度（0x00E0 == 32位PE文件，0x00F0 == 64位PE文件）'},{name:'Characteristics',value:8450,length:2,desc:'文件属性：文件是可执行的、只在32位平台上运行、DLL文件'}]},{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NT扩展头',value:[{name:'Magic',value:267,length:2,desc:'魔术字，说明文件的类型(107H == ROM 镜像；10BH == PE32；20BH == PE64)'},{name:'MajorLinkerVersion',value:9,length:1,desc:'链接器主版本号'},{name:'MinorLinkerVersion',value:0,length:1,desc:'链接器副版本号'},{name:'SizeOfCode',value:1594368,length:4,desc:'所有含代码的节的总大小（基于文件对齐）'},{name:'SizeOfInitializedData',value:557056,length:4,desc:'所有含已初始化数据的节的总大小'},{name:'SizeOfUninitializedData',value:0,length:4,desc:'所有含未初始化数据的节的总大小（在文件中不占用空间，但是在被加载到内存之后，PE加载程序将会为这些数据分配适当的空间）'},{name:'AddressOfEntryPoint',value:1594705,length:4,desc:'程序执行入口RVA（记录了启动代码距离该PE加载后的起始位置到底多少个字节。对于程序映像，它是启动地址；对于设备驱动程序，它是初始化函数的地址；对于DLL来说，它是可选的，如果不存在需要设置为0）'},{name:'BaseOfCode',value:4096,length:4,desc:'代码的节的起始RVA（表示映像被加载到内存中后，代码节的开头相对于映像基址的偏移地址）'},{name:'BaseOfData',value:1601536,length:4,desc:'数据的节的起始RVA（表示映像被加载到内存中后，数据节的开头相对于映像基址的偏移地址）'},{name:'ImageBase',value:268435456,length:4,desc:'PE映像的优先装入地址（EXE文件总是可以以这个位置装入；但是如果一个程序引入了多个DLL文件，则DLL实际装入地址与该值可能就会不同；该值必须是64K的整数倍）'},{name:'SectionAlignment',value:4096,length:4,desc:'内存中的节的对齐粒度'},{name:'FileAlignment',value:512,length:4,desc:'文件中的节的对齐粒度'},{name:'MajorOperatingSystemVersion',value:5,length:2,desc:'操作系统主版本号'},{name:'MinorOperatingSystemVersion',value:0,length:2,desc:'操作系统副版本号'},{name:'MajorImageVersion',value:0,length:2,desc:'该PE主版本号'},{name:'MinorImageVersion',value:0,length:2,desc:'该PE副版本号'},{name:'MajorSubsystemVersion',value:5,length:2,desc:'所需子系统的主版本号'},{name:'MinorSubsystemVersion',value:0,length:2,desc:'所需子系统的副版本号'},{name:'Win32VersionValue',value:'',length:4,desc:'子系统版本的值（未用，必须设置为0）'},{name:'SizeOfImage',value:2162688,length:4,desc:'内存中整个PE的映像尺寸（可以比实际的值大，但不能比它小，且必须保证它是SectionAlignment的整数倍）'},{name:'SizeOfHeaders',value:1024,length:4,desc:'所有头+节表按照文件对齐粒度对齐后的大小'},{name:'CheckSum',value:0,length:4,desc:'校验和（大多数PE文件中，该值是0；但在一些内核模式的驱动程序和系统DLL中，它必须存在且有效）'},{name:'Subsystem',value:2,length:2,desc:'指定使用界面的子系统：Windows 图形用户界面'},{name:'DllCharacteristics',value:256,length:2,desc:'DLL文件特性（不是针对DLL文件的，而是针对所有PE文件的）：该映像兼容DEP'},{name:'SizeOfStackReserve',value:1048576,length:4,desc:'初始化的栈大小'},{name:'SizeOfStackCommit',value:4096,length:4,desc:'初始化时实际提交的栈大小的栈大小'},{name:'SizeOfHeapReserve',value:1048576,length:4,desc:'初始化时保留的堆大小'},{name:'SizeOfHeapCommit',value:4096,length:4,desc:'初始化时实际提交的堆大小'},{name:'LoaderFlags',value:0,length:4,desc:'加载标志'},{name:'NumberOfRvaAndSizes',value:16,length:4,desc:'数据目录结构的项目数量'}]},{ name:'IMAGE_OPTIONAL_HEADER::DATA_DIRECTORY',title:'数据目录项',value:[{name:'导出表(.edata)',valueRVA:2037152,valueFOA:2031008,valueTableSize:33275,length:4,desc:'导出表(.edata)'},{name:'导入表(.idata)',valueRVA:2034428,valueFOA:2028284,valueTableSize:120,length:4,desc:'导入表(.idata)'},{name:'资源表(.rsrc)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'资源表(.rsrc)'},{name:'异常表(.pdata)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'异常表(.pdata)'},{name:'安全表(文件偏移)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'安全表(文件偏移)'},{name:'重定位表(.reloc)',valueRVA:2088960,valueFOA:2068992,valueTableSize:61652,length:4,desc:'重定位表(.reloc)'},{name:'调试表(.debug)',valueRVA:1602256,valueFOA:1596112,valueTableSize:28,length:4,desc:'调试表(.debug)'},{name:'版权表(必须为0)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'版权表(必须为0)'},{name:'全局指针表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'全局指针表'},{name:'线程本地存储表(.tls)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'线程本地存储表(.tls)'},{name:'加载配置表',valueRVA:2034144,valueFOA:2028000,valueTableSize:64,length:4,desc:'加载配置表'},{name:'绑定导入表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'绑定导入表'},{name:'IAT表',valueRVA:1601536,valueFOA:1595392,valueTableSize:596,length:4,desc:'IAT表'},{name:'延迟导入表',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'延迟导入表'},{name:'CLR表(.cormeta)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'CLR表(.cormeta)'},{name:'预留类型',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'预留类型'}]}];
+var PESectionData = [{ name:'IMAGE_SECTION_HEADER[0]',title:'节表[0]',value:[{name:'Name',value:14805964,length:8,desc:'8字节节名：.text'},{name:'VirtualSize',value:1594043,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:4096,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:1594368,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:1024,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1610612768,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[1]',title:'节表[1]',value:[{name:'Name',value:14805964,length:8,desc:'8字节节名：.rdata'},{name:'VirtualSize',value:468891,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:1601536,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:468992,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:1595392,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1073741888,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[2]',title:'节表[2]',value:[{name:'Name',value:14805964,length:8,desc:'8字节节名：.data'},{name:'VirtualSize',value:14096,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:2072576,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:4608,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:2064384,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:3221225536,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]},{ name:'IMAGE_SECTION_HEADER[3]',title:'节表[3]',value:[{name:'Name',value:14805964,length:8,desc:'8字节节名：.reloc'},{name:'VirtualSize',value:73682,length:4,desc:'节的数据在没有对齐前的真实尺寸（但是很多PE文件中这个值都不准确）'},{name:'VirtualAddress',value:2088960,length:4,desc:'节区的RVA地址'},{name:'SizeOfRawData',value:73728,length:4,desc:'在文件中对齐后的尺寸'},{name:'PointerToRawData',value:2068992,length:4,desc:'在文件中的偏移'},{name:'PointerToRelocations',value:0,length:4,desc:'在OBJ文件中使用'},{name:'PointerToLinenumbers',value:0,length:4,desc:'行号表的位置（供调试用）'},{name:'NumberOfRelocations',value:0,length:2,desc:'在OBJ文件中使用'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'行号表中行号的数量'},{name:'Characteristics',value:1107296320,length:4,desc:'节的属性：节中包含代码、节中包含已初始化的数据、节中包含未初始化的数据、节中的数据在进程开始后将被丢弃、节中的数据不会经过缓存、节中的数据不会被交换到磁盘、节中的数据将会被不同进程所共享、映射到内存后的页面包含可执行属性、映射到内存后的页面包含可读属性、映射到内存后的页面包含可写属性'}]}];
+var PEImportData = [{name:'WINMM.dll',value:[{hint:148,name:'timeGetTime'}]},{name:'WS2_32.dll',value:[{hint:115,name:'无函数名，按序号导出'},{hint:8,name:'无函数名，按序号导出'},{hint:137,name:'getaddrinfo'},{hint:111,name:'无函数名，按序号导出'},{hint:9,name:'无函数名，按序号导出'},{hint:22,name:'无函数名，按序号导出'},{hint:4,name:'无函数名，按序号导出'},{hint:16,name:'无函数名，按序号导出'},{hint:2,name:'无函数名，按序号导出'},{hint:23,name:'无函数名，按序号导出'},{hint:136,name:'freeaddrinfo'},{hint:3,name:'无函数名，按序号导出'},{hint:19,name:'无函数名，按序号导出'},{hint:13,name:'无函数名，按序号导出'},{hint:1,name:'无函数名，按序号导出'},{hint:21,name:'无函数名，按序号导出'}]},{name:'MSVCP90.dll',value:[{hint:3141,name:'_Nan'}]},{name:'MSVCR90.dll',value:[{hint:1372,name:'strncpy_s'},{hint:1232,name:'feof'},{hint:1341,name:'rewind'},{hint:1250,name:'fread'},{hint:1233,name:'ferror'},{hint:1260,name:'ftell'},{hint:1258,name:'fseek'},{hint:408,name:'_fpclass'},{hint:852,name:'_set_abort_behavior'},{hint:404,name:'_finite'},{hint:998,name:'_unlock'},{hint:150,name:'__dllonexit'},{hint:362,name:'_encode_pointer'},{hint:630,name:'_lock'},{hint:796,name:'_onexit'},{hint:352,name:'_decode_pointer'},{hint:647,name:'_malloc_crt'},{hint:363,name:'_encoded_null'},{hint:516,name:'_initterm'},{hint:74,name:'_CIatan2'},{hint:277,name:'_amsg_exit'},{hint:267,name:'_adjust_fdiv'},{hint:106,name:'__CppXcptFilter'},{hint:331,name:'_crt_debugger_hook'},{hint:371,name:'_except_handler4_common'},{hint:140,name:'__clean_type_info_names_internal'},{hint:627,name:'_localtime32_s'},{hint:1353,name:'srand'},{hint:788,name:'_mkgmtime32'},{hint:292,name:'_beginthreadex'},{hint:1243,name:'fopen_s'},{hint:1038,name:'_vsnprintf_s'},{hint:1205,name:'abort'},{hint:1370,name:'strncmp'},{hint:1231,name:'fclose'},{hint:1263,name:'fwrite'},{hint:1346,name:'setvbuf'},{hint:1316,name:'memchr'},{hint:1228,name:'exit'},{hint:1244,name:'fprintf'},{hint:1326,name:'printf'},{hint:1381,name:'strtol'},{hint:1284,name:'isspace'},{hint:1378,name:'strtod'},{hint:1333,name:'qsort'},{hint:1377,name:'strstr'},{hint:1234,name:'fflush'},{hint:161,name:'__iob_func'},{hint:1320,name:'memmove'},{hint:1358,name:'strchr'},{hint:1221,name:'ceil'},{hint:96,name:'_HUGE'},{hint:15,name:'??2@YAPAXI@Z'},{hint:1307,name:'malloc'},{hint:1252,name:'free'},{hint:17,name:'??3@YAXPAX@Z'},{hint:811,name:'_purecall'},{hint:33,name:'??_V@YAXPAX@Z'},{hint:1400,name:'vfprintf'},{hint:1336,name:'rand'},{hint:979,name:'_tzset'},{hint:1322,name:'memset'},{hint:1318,name:'memcpy'},{hint:85,name:'_CItan'},{hint:82,name:'_CIsin'},{hint:79,name:'_CIlog'},{hint:77,name:'_CIexp'},{hint:75,name:'_CIcos'},{hint:73,name:'_CIatan'},{hint:72,name:'_CIasin'},{hint:71,name:'_CIacos'},{hint:1240,name:'floor'},{hint:78,name:'_CIfmod'},{hint:81,name:'_CIpow'},{hint:84,name:'_CIsqrt'},{hint:593,name:'_isnan'},{hint:517,name:'_initterm_e'}]},{name:'KERNEL32.dll',value:[{hint:1069,name:'TerminateProcess'},{hint:698,name:'InterlockedCompareExchange'},{hint:192,name:'DeleteFileA'},{hint:909,name:'ResumeThread'},{hint:1063,name:'SuspendThread'},{hint:602,name:'GetTempPathA'},{hint:612,name:'GetThreadTimes'},{hint:426,name:'GetCurrentProcessId'},{hint:67,name:'CloseHandle'},{hint:1074,name:'TlsAlloc'},{hint:826,name:'OutputDebugStringA'},{hint:429,name:'GetCurrentThreadId'},{hint:190,name:'DeleteCriticalSection'},{hint:1114,name:'VirtualProtect'},{hint:614,name:'GetTickCount'},{hint:852,name:'QueryPerformanceCounter'},{hint:203,name:'DisableThreadLibraryCalls'},{hint:1045,name:'SetUnhandledExceptionFilter'},{hint:1086,name:'UnhandledExceptionFilter'},{hint:721,name:'IsDebuggerPresent'},{hint:585,name:'GetSystemInfo'},{hint:471,name:'GetFileType'},{hint:823,name:'OpenThread'},{hint:753,name:'LoadLibraryA'},{hint:600,name:'GetTempFileNameA'},{hint:217,name:'EnterCriticalSection'},{hint:1108,name:'VirtualAlloc'},{hint:544,name:'GetProcAddress'},{hint:486,name:'GetLastError'},{hint:571,name:'GetStdHandle'},{hint:891,name:'ReleaseSemaphore'},{hint:619,name:'GetTimeZoneInformation'},{hint:715,name:'IsBadWritePtr'},{hint:153,name:'CreateSemaphoreA'},{hint:751,name:'LeaveCriticalSection'},{hint:1057,name:'Sleep'},{hint:1146,name:'WideCharToMultiByte'},{hint:1077,name:'TlsSetValue'},{hint:692,name:'InitializeCriticalSection'},{hint:591,name:'GetSystemTimeAsFileTime'},{hint:1111,name:'VirtualFree'},{hint:428,name:'GetCurrentThread'},{hint:1124,name:'WaitForSingleObject'},{hint:425,name:'GetCurrentProcess'},{hint:1076,name:'TlsGetValue'},{hint:1081,name:'TryEnterCriticalSection'},{hint:604,name:'GetThreadContext'},{hint:702,name:'InterlockedExchangeAdd'},{hint:701,name:'InterlockedExchange'}]}];
+var PEExportData = [{name:'v8.dll',value:[{hint:0,name:'??0AccessorInfo@v8@@QAE@PAPAVObject@internal@1@@Z'},{hint:1,name:'??0ActivityControl@v8@@QAE@ABV01@@Z'},{hint:2,name:'??0ActivityControl@v8@@QAE@XZ'},{hint:3,name:'??0AsciiValue@String@v8@@QAE@V?$Handle@VValue@v8@@@2@@Z'},{hint:4,name:'??0DeclareExtension@v8@@QAE@PAVExtension@1@@Z'},{hint:5,name:'??0Extension@v8@@QAE@PBD0HPAPBD@Z'},{hint:6,name:'??0ExtensionConfiguration@v8@@QAE@HQAPBD@Z'},{hint:7,name:'??0ExternalAsciiStringResource@String@v8@@IAE@XZ'},{hint:8,name:'??0ExternalStringResource@String@v8@@IAE@XZ'},{hint:9,name:'??0ExternalStringResourceBase@String@v8@@IAE@XZ'},{hint:10,name:'??0HandleScope@v8@@QAE@XZ'},{hint:11,name:'??0HeapStatistics@v8@@QAE@XZ'},{hint:12,name:'??0Locker@v8@@QAE@PAVIsolate@1@@Z'},{hint:13,name:'??0OutputStream@v8@@QAE@ABV01@@Z'},{hint:14,name:'??0OutputStream@v8@@QAE@XZ'},{hint:15,name:'??0ResourceConstraints@v8@@QAE@XZ'},{hint:16,name:'??0RetainedObjectInfo@v8@@IAE@XZ'},{hint:17,name:'??0Scope@Isolate@v8@@QAE@PAV12@@Z'},{hint:18,name:'??0ScriptData@v8@@QAE@ABV01@@Z'},{hint:19,name:'??0ScriptData@v8@@QAE@XZ'},{hint:20,name:'??0StartupDataDecompressor@v8@@QAE@ABV01@@Z'},{hint:21,name:'??0StartupDataDecompressor@v8@@QAE@XZ'},{hint:22,name:'??0TryCatch@v8@@QAE@XZ'},{hint:23,name:'??0Unlocker@v8@@QAE@PAVIsolate@1@@Z'},{hint:24,name:'??0Utf8Value@String@v8@@QAE@V?$Handle@VValue@v8@@@2@@Z'},{hint:25,name:'??0Value@String@v8@@QAE@V?$Handle@VValue@v8@@@2@@Z'},{hint:26,name:'??1ActivityControl@v8@@UAE@XZ'},{hint:27,name:'??1AsciiValue@String@v8@@QAE@XZ'},{hint:28,name:'??1Extension@v8@@UAE@XZ'},{hint:29,name:'??1ExternalAsciiStringResource@String@v8@@UAE@XZ'},{hint:30,name:'??1ExternalStringResource@String@v8@@UAE@XZ'},{hint:31,name:'??1ExternalStringResourceBase@String@v8@@UAE@XZ'},{hint:32,name:'??1HandleScope@v8@@QAE@XZ'},{hint:33,name:'??1Locker@v8@@QAE@XZ'},{hint:34,name:'??1OutputStream@v8@@UAE@XZ'},{hint:35,name:'??1RetainedObjectInfo@v8@@MAE@XZ'},{hint:36,name:'??1Scope@Isolate@v8@@QAE@XZ'},{hint:37,name:'??1ScriptData@v8@@UAE@XZ'},{hint:38,name:'??1StartupDataDecompressor@v8@@UAE@XZ'},{hint:39,name:'??1TryCatch@v8@@QAE@XZ'},{hint:40,name:'??1Unlocker@v8@@QAE@XZ'},{hint:41,name:'??1Utf8Value@String@v8@@QAE@XZ'},{hint:42,name:'??1Value@String@v8@@QAE@XZ'},{hint:43,name:'??4AccessorInfo@v8@@QAEAAV01@ABV01@@Z'},{hint:44,name:'??4ActivityControl@v8@@QAEAAV01@ABV01@@Z'},{hint:45,name:'??4Context@v8@@QAEAAV01@ABV01@@Z'},{hint:46,name:'??4CpuProfile@v8@@QAEAAV01@ABV01@@Z'},{hint:47,name:'??4CpuProfileNode@v8@@QAEAAV01@ABV01@@Z'},{hint:48,name:'??4CpuProfiler@v8@@QAEAAV01@ABV01@@Z'},{hint:49,name:'??4Data@HandleScope@v8@@QAEAAV012@ABV012@@Z'},{hint:50,name:'??4Data@v8@@QAEAAV01@ABV01@@Z'},{hint:51,name:'??4Debug@v8@@QAEAAV01@ABV01@@Z'},{hint:52,name:'??4DeclareExtension@v8@@QAEAAV01@ABV01@@Z'},{hint:53,name:'??4Exception@v8@@QAEAAV01@ABV01@@Z'},{hint:54,name:'??4ExtensionConfiguration@v8@@QAEAAV01@ABV01@@Z'},{hint:55,name:'??4FunctionTemplate@v8@@QAEAAV01@ABV01@@Z'},{hint:56,name:'??4HeapGraphEdge@v8@@QAEAAV01@ABV01@@Z'},{hint:57,name:'??4HeapGraphNode@v8@@QAEAAV01@ABV01@@Z'},{hint:58,name:'??4HeapProfiler@v8@@QAEAAV01@ABV01@@Z'},{hint:59,name:'??4HeapSnapshot@v8@@QAEAAV01@ABV01@@Z'},{hint:60,name:'??4HeapStatistics@v8@@QAEAAV01@ABV01@@Z'},{hint:61,name:'??4Message@v8@@QAEAAV01@ABV01@@Z'},{hint:62,name:'??4ObjectTemplate@v8@@QAEAAV01@ABV01@@Z'},{hint:63,name:'??4OutputStream@v8@@QAEAAV01@ABV01@@Z'},{hint:64,name:'??4ResourceConstraints@v8@@QAEAAV01@ABV01@@Z'},{hint:65,name:'??4Script@v8@@QAEAAV01@ABV01@@Z'},{hint:66,name:'??4ScriptData@v8@@QAEAAV01@ABV01@@Z'},{hint:67,name:'??4Signature@v8@@QAEAAV01@ABV01@@Z'},{hint:68,name:'??4StackFrame@v8@@QAEAAV01@ABV01@@Z'},{hint:69,name:'??4StackTrace@v8@@QAEAAV01@ABV01@@Z'},{hint:70,name:'??4StartupDataDecompressor@v8@@QAEAAV01@ABV01@@Z'},{hint:71,name:'??4Template@v8@@QAEAAV01@ABV01@@Z'},{hint:72,name:'??4Testing@v8@@QAEAAV01@ABV01@@Z'},{hint:73,name:'??4TryCatch@v8@@QAEAAV01@ABV01@@Z'},{hint:74,name:'??4TypeSwitch@v8@@QAEAAV01@ABV01@@Z'},{hint:75,name:'??4Unlocker@v8@@QAEAAV01@ABV01@@Z'},{hint:76,name:'??4V8@v8@@QAEAAV01@ABV01@@Z'},{hint:77,name:'??DAsciiValue@String@v8@@QAEPADXZ'},{hint:78,name:'??DAsciiValue@String@v8@@QBEPBDXZ'},{hint:79,name:'??DUtf8Value@String@v8@@QAEPADXZ'},{hint:80,name:'??DUtf8Value@String@v8@@QBEPBDXZ'},{hint:81,name:'??DValue@String@v8@@QAEPAGXZ'},{hint:82,name:'??DValue@String@v8@@QBEPBGXZ'},{hint:83,name:'??_7ActivityControl@v8@@6B@'},{hint:84,name:'??_7Extension@v8@@6B@'},{hint:85,name:'??_7ExternalAsciiStringResource@String@v8@@6B@'},{hint:86,name:'??_7ExternalStringResource@String@v8@@6B@'},{hint:87,name:'??_7ExternalStringResourceBase@String@v8@@6B@'},{hint:88,name:'??_7OutputStream@v8@@6B@'},{hint:89,name:'??_7RetainedObjectInfo@v8@@6B@'},{hint:90,name:'??_7ScriptData@v8@@6B@'},{hint:91,name:'??_7StartupDataDecompressor@v8@@6B@'},{hint:92,name:'??_FLocker@v8@@QAEXXZ'},{hint:93,name:'??_FUnlocker@v8@@QAEXXZ'},{hint:94,name:'?AddGCEpilogueCallback@V8@v8@@SAXP6AXW4GCType@2@W4GCCallbackFlags@2@@Z0@Z'},{hint:95,name:'?AddGCPrologueCallback@V8@v8@@SAXP6AXW4GCType@2@W4GCCallbackFlags@2@@Z0@Z'},{hint:96,name:'?AddImplicitReferences@V8@v8@@SAXV?$Persistent@VObject@v8@@@2@PAV?$Persistent@VValue@v8@@@2@I@Z'},{hint:97,name:'?AddInstancePropertyAccessor@FunctionTemplate@v8@@AAEXV?$Handle@VString@v8@@@2@P6A?AV?$Handle@VValue@v8@@@2@V?$Local@VString@v8@@@2@ABVAccessorInfo@2@@ZP6AX1V?$Local@VValue@v8@@@2@2@ZV42@W4AccessControl@2@W4PropertyAttribute@2@@Z'},{hint:98,name:'?AddMemoryAllocationCallback@V8@v8@@SAXP6AXW4ObjectSpace@2@W4AllocationAction@2@H@Z01@Z'},{hint:99,name:'?AddMessageListener@V8@v8@@SA_NP6AXV?$Handle@VMessage@v8@@@2@V?$Handle@VValue@v8@@@2@@Z1@Z'},{hint:100,name:'?AddObjectGroup@V8@v8@@SAXPAV?$Persistent@VValue@v8@@@2@IPAVRetainedObjectInfo@2@@Z'},{hint:101,name:'?AdjustAmountOfExternalAllocatedMemory@V8@v8@@SAHH@Z'},{hint:102,name:'?AllowCodeGenerationFromStrings@Context@v8@@QAEX_N@Z'},{hint:103,name:'?AsArray@StackTrace@v8@@QAE?AV?$Local@VArray@v8@@@2@XZ'},{hint:104,name:'?BooleanValue@BooleanObject@v8@@QBE_NXZ'},{hint:105,name:'?BooleanValue@Value@v8@@QBE_NXZ'},{hint:106,name:'?Call@Debug@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VFunction@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:107,name:'?Call@Function@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VObject@v8@@@2@HQAV?$Handle@VValue@v8@@@2@@Z'},{hint:108,name:'?CallAsConstructor@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@HQAV?$Handle@VValue@v8@@@2@@Z'},{hint:109,name:'?CallAsFunction@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VObject@v8@@@2@HQAV?$Handle@VValue@v8@@@2@@Z'},{hint:110,name:'?CanContinue@TryCatch@v8@@QBE_NXZ'},{hint:111,name:'?CanMakeExternal@String@v8@@QAE_NXZ'},{hint:112,name:'?CancelDebugBreak@Debug@v8@@SAXPAVIsolate@2@@Z'},{hint:113,name:'?CheckCast@Array@v8@@CAXPAVValue@2@@Z'},{hint:114,name:'?CheckCast@BooleanObject@v8@@CAXPAVValue@2@@Z'},{hint:115,name:'?CheckCast@Date@v8@@CAXPAVValue@2@@Z'},{hint:116,name:'?CheckCast@External@v8@@CAXPAVValue@2@@Z'},{hint:117,name:'?CheckCast@Function@v8@@CAXPAVValue@2@@Z'},{hint:118,name:'?CheckCast@Integer@v8@@CAXPAVValue@2@@Z'},{hint:119,name:'?CheckCast@Number@v8@@CAXPAVValue@2@@Z'},{hint:120,name:'?CheckCast@NumberObject@v8@@CAXPAVValue@2@@Z'},{hint:121,name:'?CheckCast@Object@v8@@CAXPAVValue@2@@Z'},{hint:122,name:'?CheckCast@RegExp@v8@@CAXPAVValue@2@@Z'},{hint:123,name:'?CheckCast@String@v8@@CAXPAVValue@2@@Z'},{hint:124,name:'?CheckCast@StringObject@v8@@CAXPAVValue@2@@Z'},{hint:125,name:'?CheckedGetInternalField@Object@v8@@AAE?AV?$Local@VValue@v8@@@2@H@Z'},{hint:126,name:'?ClearWeak@V8@v8@@CAXPAPAVObject@internal@2@@Z'},{hint:127,name:'?Clone@Object@v8@@QAE?AV?$Local@VObject@v8@@@2@XZ'},{hint:128,name:'?CloneElementAt@Array@v8@@QAE?AV?$Local@VObject@v8@@@2@I@Z'},{hint:129,name:'?Compile@Script@v8@@SA?AV?$Local@VScript@v8@@@2@V?$Handle@VString@v8@@@2@PAVScriptOrigin@2@PAVScriptData@2@0@Z'},{hint:130,name:'?Compile@Script@v8@@SA?AV?$Local@VScript@v8@@@2@V?$Handle@VString@v8@@@2@V?$Handle@VValue@v8@@@2@0@Z'},{hint:131,name:'?Concat@String@v8@@SA?AV?$Local@VString@v8@@@2@V?$Handle@VString@v8@@@2@0@Z'},{hint:132,name:'?ContextDisposedNotification@V8@v8@@SAHXZ'},{hint:133,name:'?CreateHandle@HandleScope@v8@@SAPAPAVObject@internal@2@PAV342@@Z'},{hint:134,name:'?CreateHandle@HandleScope@v8@@SAPAPAVObject@internal@2@PAVHeapObject@42@@Z'},{hint:135,name:'?CreationContext@Object@v8@@QAE?AV?$Local@VContext@v8@@@2@XZ'},{hint:136,name:'?CurrentStackTrace@StackTrace@v8@@SA?AV?$Local@VStackTrace@v8@@@2@HW4StackTraceOptions@12@@Z'},{hint:137,name:'?Data@AccessorInfo@v8@@QBE?AV?$Local@VValue@v8@@@2@XZ'},{hint:138,name:'?DateTimeConfigurationChangeNotification@Date@v8@@SAXXZ'},{hint:139,name:'?DebugBreak@Debug@v8@@SAXPAVIsolate@2@@Z'},{hint:140,name:'?DebugBreakForCommand@Debug@v8@@SAXPAVClientData@12@PAVIsolate@2@@Z'},{hint:141,name:'?Decompress@StartupDataDecompressor@v8@@QAEHXZ'},{hint:142,name:'?DefineWrapperClass@HeapProfiler@v8@@SAXGP6APAVRetainedObjectInfo@2@GV?$Handle@VValue@v8@@@2@@Z@Z'},{hint:143,name:'?Delete@CpuProfile@v8@@QAEXXZ'},{hint:144,name:'?Delete@HeapSnapshot@v8@@QAEXXZ'},{hint:145,name:'?Delete@Object@v8@@QAE_NI@Z'},{hint:146,name:'?Delete@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:147,name:'?DeleteAllProfiles@CpuProfiler@v8@@SAXXZ'},{hint:148,name:'?DeleteAllSnapshots@HeapProfiler@v8@@SAXXZ'},{hint:149,name:'?DeleteHiddenValue@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:150,name:'?DeoptimizeAll@Testing@v8@@SAXXZ'},{hint:151,name:'?DetachGlobal@Context@v8@@QAEXXZ'},{hint:152,name:'?Dispose@ExternalStringResourceBase@String@v8@@MAEXXZ'},{hint:153,name:'?Dispose@Isolate@v8@@QAEXXZ'},{hint:154,name:'?Dispose@V8@v8@@SA_NXZ'},{hint:155,name:'?DisposeGlobal@V8@v8@@CAXPAPAVObject@internal@2@@Z'},{hint:156,name:'?Empty@String@v8@@SA?AV?$Local@VString@v8@@@2@XZ'},{hint:157,name:'?EnableAgent@Debug@v8@@SA_NPBDH_N@Z'},{hint:158,name:'?EnableSlidingStateWindow@V8@v8@@SAXXZ'},{hint:159,name:'?Enter@Context@v8@@QAEXXZ'},{hint:160,name:'?Enter@Isolate@v8@@QAEXXZ'},{hint:161,name:'?Equals@Value@v8@@QBE_NV?$Handle@VValue@v8@@@2@@Z'},{hint:162,name:'?Error@Exception@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:163,name:'?Exception@TryCatch@v8@@QBE?AV?$Local@VValue@v8@@@2@XZ'},{hint:164,name:'?Exit@Context@v8@@QAEXXZ'},{hint:165,name:'?Exit@Isolate@v8@@QAEXXZ'},{hint:166,name:'?False@v8@@YA?AV?$Handle@VBoolean@v8@@@1@XZ'},{hint:167,name:'?FindInstanceInPrototypeChain@Object@v8@@QAE?AV?$Local@VObject@v8@@@2@V?$Handle@VFunctionTemplate@v8@@@2@@Z'},{hint:168,name:'?FindProfile@CpuProfiler@v8@@SAPBVCpuProfile@2@IV?$Handle@VValue@v8@@@2@@Z'},{hint:169,name:'?FindSnapshot@HeapProfiler@v8@@SAPBVHeapSnapshot@2@I@Z'},{hint:170,name:'?ForceDelete@Object@v8@@QAE_NV?$Handle@VValue@v8@@@2@@Z'},{hint:171,name:'?ForceSet@Object@v8@@QAE_NV?$Handle@VValue@v8@@@2@0W4PropertyAttribute@2@@Z'},{hint:172,name:'?FullIsString@Value@v8@@ABE_NXZ'},{hint:173,name:'?FullUnwrap@External@v8@@CAPAXV?$Handle@VValue@v8@@@2@@Z'},{hint:174,name:'?Get@Message@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:175,name:'?Get@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@I@Z'},{hint:176,name:'?Get@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:177,name:'?GetBottomUpRoot@CpuProfile@v8@@QBEPBVCpuProfileNode@2@XZ'},{hint:178,name:'?GetCallUid@CpuProfileNode@v8@@QBEIXZ'},{hint:179,name:'?GetCalling@Context@v8@@SA?AV?$Local@VContext@v8@@@2@XZ'},{hint:180,name:'?GetChild@CpuProfileNode@v8@@QBEPBV12@H@Z'},{hint:181,name:'?GetChild@HeapGraphNode@v8@@QBEPBVHeapGraphEdge@2@H@Z'},{hint:182,name:'?GetChildrenCount@CpuProfileNode@v8@@QBEHXZ'},{hint:183,name:'?GetChildrenCount@HeapGraphNode@v8@@QBEHXZ'},{hint:184,name:'?GetChunkSize@OutputStream@v8@@UAEHXZ'},{hint:185,name:'?GetColumn@StackFrame@v8@@QBEHXZ'},{hint:186,name:'?GetCompressedStartupData@V8@v8@@SAXPAVStartupData@2@@Z'},{hint:187,name:'?GetCompressedStartupDataAlgorithm@V8@v8@@SA?AW4CompressionAlgorithm@StartupData@2@XZ'},{hint:188,name:'?GetCompressedStartupDataCount@V8@v8@@SAHXZ'},{hint:189,name:'?GetConstructorName@Object@v8@@QAE?AV?$Local@VString@v8@@@2@XZ'},{hint:190,name:'?GetCurrent@Context@v8@@SA?AV?$Local@VContext@v8@@@2@XZ'},{hint:191,name:'?GetCurrent@Isolate@v8@@SAPAV12@XZ'},{hint:192,name:'?GetCurrentThreadId@V8@v8@@SAHXZ'},{hint:193,name:'?GetData@Context@v8@@QAE?AV?$Local@VValue@v8@@@2@XZ'},{hint:194,name:'?GetData@Isolate@v8@@QAEPAXXZ'},{hint:195,name:'?GetDebugContext@Debug@v8@@SA?AV?$Local@VContext@v8@@@2@XZ'},{hint:196,name:'?GetDominatorNode@HeapGraphNode@v8@@QBEPBV12@XZ'},{hint:197,name:'?GetElementCount@RetainedObjectInfo@v8@@UAEHXZ'},{hint:198,name:'?GetEndColumn@Message@v8@@QBEHXZ'},{hint:199,name:'?GetEndPosition@Message@v8@@QBEHXZ'},{hint:200,name:'?GetEntered@Context@v8@@SA?AV?$Local@VContext@v8@@@2@XZ'},{hint:201,name:'?GetExternalAsciiStringResource@String@v8@@QBEPAVExternalAsciiStringResource@12@XZ'},{hint:202,name:'?GetFlags@RegExp@v8@@QBE?AW4Flags@12@XZ'},{hint:203,name:'?GetFrame@StackTrace@v8@@QBE?AV?$Local@VStackFrame@v8@@@2@I@Z'},{hint:204,name:'?GetFrameCount@StackTrace@v8@@QBEHXZ'},{hint:205,name:'?GetFromNode@HeapGraphEdge@v8@@QBEPBVHeapGraphNode@2@XZ'},{hint:206,name:'?GetFunction@FunctionTemplate@v8@@QAE?AV?$Local@VFunction@v8@@@2@XZ'},{hint:207,name:'?GetFunctionName@CpuProfileNode@v8@@QBE?AV?$Handle@VString@v8@@@2@XZ'},{hint:208,name:'?GetFunctionName@StackFrame@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:209,name:'?GetHeapStatistics@V8@v8@@SAXPAVHeapStatistics@2@@Z'},{hint:210,name:'?GetHiddenValue@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:211,name:'?GetId@HeapGraphNode@v8@@QBE_KXZ'},{hint:212,name:'?GetIdentityHash@Object@v8@@QAEHXZ'},{hint:213,name:'?GetIndexedPropertiesExternalArrayData@Object@v8@@QAEPAXXZ'},{hint:214,name:'?GetIndexedPropertiesExternalArrayDataLength@Object@v8@@QAEHXZ'},{hint:215,name:'?GetIndexedPropertiesExternalArrayDataType@Object@v8@@QAE?AW4ExternalArrayType@2@XZ'},{hint:216,name:'?GetIndexedPropertiesPixelData@Object@v8@@QAEPAEXZ'},{hint:217,name:'?GetIndexedPropertiesPixelDataLength@Object@v8@@QAEHXZ'},{hint:218,name:'?GetLineNumber@CpuProfileNode@v8@@QBEHXZ'},{hint:219,name:'?GetLineNumber@Message@v8@@QBEHXZ'},{hint:220,name:'?GetLineNumber@StackFrame@v8@@QBEHXZ'},{hint:221,name:'?GetMirror@Debug@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:222,name:'?GetName@Function@v8@@QBE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:223,name:'?GetName@HeapGraphEdge@v8@@QBE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:224,name:'?GetName@HeapGraphNode@v8@@QBE?AV?$Handle@VString@v8@@@2@XZ'},{hint:225,name:'?GetNativeFunction@Extension@v8@@UAE?AV?$Handle@VFunctionTemplate@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:226,name:'?GetNode@HeapSnapshot@v8@@QBEPBVHeapGraphNode@2@H@Z'},{hint:227,name:'?GetNodeById@HeapSnapshot@v8@@QBEPBVHeapGraphNode@2@_K@Z'},{hint:228,name:'?GetNodesCount@HeapSnapshot@v8@@QBEHXZ'},{hint:229,name:'?GetOutputEncoding@OutputStream@v8@@UAE?AW4OutputEncoding@12@XZ'},{hint:230,name:'?GetOwnPropertyNames@Object@v8@@QAE?AV?$Local@VArray@v8@@@2@XZ'},{hint:231,name:'?GetProfile@CpuProfiler@v8@@SAPBVCpuProfile@2@HV?$Handle@VValue@v8@@@2@@Z'},{hint:232,name:'?GetProfilesCount@CpuProfiler@v8@@SAHXZ'},{hint:233,name:'?GetPropertyAttributes@Object@v8@@QAE?AW4PropertyAttribute@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:234,name:'?GetPropertyNames@Object@v8@@QAE?AV?$Local@VArray@v8@@@2@XZ'},{hint:235,name:'?GetPrototype@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@XZ'},{hint:236,name:'?GetRealNamedProperty@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:237,name:'?GetRealNamedPropertyInPrototypeChain@Object@v8@@QAE?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:238,name:'?GetRetainedSize@HeapGraphNode@v8@@QBEH_N@Z'},{hint:239,name:'?GetRetainer@HeapGraphNode@v8@@QBEPBVHeapGraphEdge@2@H@Z'},{hint:240,name:'?GetRetainersCount@HeapGraphNode@v8@@QBEHXZ'},{hint:241,name:'?GetRoot@HeapSnapshot@v8@@QBEPBVHeapGraphNode@2@XZ'},{hint:242,name:'?GetScriptData@Message@v8@@QBE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:243,name:'?GetScriptLineNumber@Function@v8@@QBEHXZ'},{hint:244,name:'?GetScriptName@StackFrame@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:245,name:'?GetScriptNameOrSourceURL@StackFrame@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:246,name:'?GetScriptOrigin@Function@v8@@QBE?AVScriptOrigin@2@XZ'},{hint:247,name:'?GetScriptResourceName@CpuProfileNode@v8@@QBE?AV?$Handle@VString@v8@@@2@XZ'},{hint:248,name:'?GetScriptResourceName@Message@v8@@QBE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:249,name:'?GetSecurityToken@Context@v8@@QAE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:250,name:'?GetSelfSamplesCount@CpuProfileNode@v8@@QBENXZ'},{hint:251,name:'?GetSelfSize@HeapGraphNode@v8@@QBEHXZ'},{hint:252,name:'?GetSelfTime@CpuProfileNode@v8@@QBENXZ'},{hint:253,name:'?GetSizeInBytes@RetainedObjectInfo@v8@@UAEHXZ'},{hint:254,name:'?GetSnapshot@HeapProfiler@v8@@SAPBVHeapSnapshot@2@H@Z'},{hint:255,name:'?GetSnapshotsCount@HeapProfiler@v8@@SAHXZ'},{hint:256,name:'?GetSource@RegExp@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:257,name:'?GetSourceLine@Message@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:258,name:'?GetStackTrace@Message@v8@@QBE?AV?$Handle@VStackTrace@v8@@@2@XZ'},{hint:259,name:'?GetStartColumn@Message@v8@@QBEHXZ'},{hint:260,name:'?GetStartPosition@Message@v8@@QBEHXZ'},{hint:261,name:'?GetStressRuns@Testing@v8@@SAHXZ'},{hint:262,name:'?GetTitle@CpuProfile@v8@@QBE?AV?$Handle@VString@v8@@@2@XZ'},{hint:263,name:'?GetTitle@HeapSnapshot@v8@@QBE?AV?$Handle@VString@v8@@@2@XZ'},{hint:264,name:'?GetToNode@HeapGraphEdge@v8@@QBEPBVHeapGraphNode@2@XZ'},{hint:265,name:'?GetTopDownRoot@CpuProfile@v8@@QBEPBVCpuProfileNode@2@XZ'},{hint:266,name:'?GetTotalSamplesCount@CpuProfileNode@v8@@QBENXZ'},{hint:267,name:'?GetTotalTime@CpuProfileNode@v8@@QBENXZ'},{hint:268,name:'?GetType@HeapGraphEdge@v8@@QBE?AW4Type@12@XZ'},{hint:269,name:'?GetType@HeapGraphNode@v8@@QBE?AW4Type@12@XZ'},{hint:270,name:'?GetType@HeapSnapshot@v8@@QBE?AW4Type@12@XZ'},{hint:271,name:'?GetUid@CpuProfile@v8@@QBEIXZ'},{hint:272,name:'?GetUid@HeapSnapshot@v8@@QBEIXZ'},{hint:273,name:'?GetVersion@V8@v8@@SAPBDXZ'},{hint:274,name:'?Global@Context@v8@@QAE?AV?$Local@VObject@v8@@@2@XZ'},{hint:275,name:'?GlobalizeReference@V8@v8@@CAPAPAVObject@internal@2@PAPAV342@@Z'},{hint:276,name:'?Has@Object@v8@@QAE_NI@Z'},{hint:277,name:'?Has@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:278,name:'?HasCaught@TryCatch@v8@@QBE_NXZ'},{hint:279,name:'?HasIndexedLookupInterceptor@Object@v8@@QAE_NXZ'},{hint:280,name:'?HasIndexedPropertiesInExternalArrayData@Object@v8@@QAE_NXZ'},{hint:281,name:'?HasIndexedPropertiesInPixelData@Object@v8@@QAE_NXZ'},{hint:282,name:'?HasInstance@FunctionTemplate@v8@@QAE_NV?$Handle@VValue@v8@@@2@@Z'},{hint:283,name:'?HasNamedLookupInterceptor@Object@v8@@QAE_NXZ'},{hint:284,name:'?HasOutOfMemoryException@Context@v8@@QAE_NXZ'},{hint:285,name:'?HasOwnProperty@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:286,name:'?HasRealIndexedProperty@Object@v8@@QAE_NI@Z'},{hint:287,name:'?HasRealNamedCallbackProperty@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:288,name:'?HasRealNamedProperty@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@@Z'},{hint:289,name:'?Holder@AccessorInfo@v8@@QBE?AV?$Local@VObject@v8@@@2@XZ'},{hint:290,name:'?Id@Script@v8@@QAE?AV?$Local@VValue@v8@@@2@XZ'},{hint:291,name:'?IdleNotification@V8@v8@@SA_NXZ'},{hint:292,name:'?IgnoreOutOfMemoryException@V8@v8@@SAXXZ'},{hint:293,name:'?InContext@Context@v8@@SA_NXZ'},{hint:294,name:'?Inherit@FunctionTemplate@v8@@QAEXV?$Handle@VFunctionTemplate@v8@@@2@@Z'},{hint:295,name:'?Initialize@Data@HandleScope@v8@@QAEXXZ'},{hint:296,name:'?Initialize@V8@v8@@SA_NXZ'},{hint:297,name:'?InstanceTemplate@FunctionTemplate@v8@@QAE?AV?$Local@VObjectTemplate@v8@@@2@XZ'},{hint:298,name:'?Int32Value@Value@v8@@QBEHXZ'},{hint:299,name:'?IntegerValue@Value@v8@@QBE_JXZ'},{hint:300,name:'?InternalFieldCount@Object@v8@@QAEHXZ'},{hint:301,name:'?InternalFieldCount@ObjectTemplate@v8@@QAEHXZ'},{hint:302,name:'?IsActive@Locker@v8@@SA_NXZ'},{hint:303,name:'?IsArray@Value@v8@@QBE_NXZ'},{hint:304,name:'?IsBoolean@Value@v8@@QBE_NXZ'},{hint:305,name:'?IsBooleanObject@Value@v8@@QBE_NXZ'},{hint:306,name:'?IsCallable@Object@v8@@QAE_NXZ'},{hint:307,name:'?IsConstructor@StackFrame@v8@@QBE_NXZ'},{hint:308,name:'?IsDate@Value@v8@@QBE_NXZ'},{hint:309,name:'?IsDead@V8@v8@@SA_NXZ'},{hint:310,name:'?IsDirty@Object@v8@@QAE_NXZ'},{hint:311,name:'?IsEval@StackFrame@v8@@QBE_NXZ'},{hint:312,name:'?IsExecutionTerminating@V8@v8@@SA_NPAVIsolate@2@@Z'},{hint:313,name:'?IsExternal@String@v8@@QBE_NXZ'},{hint:314,name:'?IsExternal@Value@v8@@QBE_NXZ'},{hint:315,name:'?IsExternalAscii@String@v8@@QBE_NXZ'},{hint:316,name:'?IsFalse@Value@v8@@QBE_NXZ'},{hint:317,name:'?IsFunction@Value@v8@@QBE_NXZ'},{hint:318,name:'?IsGlobalNearDeath@V8@v8@@CA_NPAPAVObject@internal@2@@Z'},{hint:319,name:'?IsGlobalWeak@V8@v8@@CA_NPAPAVObject@internal@2@@Z'},{hint:320,name:'?IsInt32@Value@v8@@QBE_NXZ'},{hint:321,name:'?IsLocked@Locker@v8@@SA_NPAVIsolate@2@@Z'},{hint:322,name:'?IsNativeError@Value@v8@@QBE_NXZ'},{hint:323,name:'?IsNull@Value@v8@@QBE_NXZ'},{hint:324,name:'?IsNumber@Value@v8@@QBE_NXZ'},{hint:325,name:'?IsNumberObject@Value@v8@@QBE_NXZ'},{hint:326,name:'?IsObject@Value@v8@@QBE_NXZ'},{hint:327,name:'?IsProfilerPaused@V8@v8@@SA_NXZ'},{hint:328,name:'?IsRegExp@Value@v8@@QBE_NXZ'},{hint:329,name:'?IsStringObject@Value@v8@@QBE_NXZ'},{hint:330,name:'?IsTrue@Value@v8@@QBE_NXZ'},{hint:331,name:'?IsUint32@Value@v8@@QBE_NXZ'},{hint:332,name:'?IsUndefined@Value@v8@@QBE_NXZ'},{hint:333,name:'?Leave@HandleScope@v8@@AAEXXZ'},{hint:334,name:'?Length@Array@v8@@QBEIXZ'},{hint:335,name:'?Length@String@v8@@QBEHXZ'},{hint:336,name:'?LowMemoryNotification@V8@v8@@SAXXZ'},{hint:337,name:'?MakeExternal@String@v8@@QAE_NPAVExternalAsciiStringResource@12@@Z'},{hint:338,name:'?MakeExternal@String@v8@@QAE_NPAVExternalStringResource@12@@Z'},{hint:339,name:'?MakeWeak@V8@v8@@CAXPAPAVObject@internal@2@PAXP6AXV?$Persistent@VValue@v8@@@2@1@Z@Z'},{hint:340,name:'?MarkAsUndetectable@ObjectTemplate@v8@@QAEXXZ'},{hint:341,name:'?MarkIndependent@V8@v8@@CAXPAPAVObject@internal@2@@Z'},{hint:342,name:'?Message@TryCatch@v8@@QBE?AV?$Local@VMessage@v8@@@2@XZ'},{hint:343,name:'?New@Array@v8@@SA?AV?$Local@VArray@v8@@@2@H@Z'},{hint:344,name:'?New@BooleanObject@v8@@SA?AV?$Local@VValue@v8@@@2@_N@Z'},{hint:345,name:'?New@Context@v8@@SA?AV?$Persistent@VContext@v8@@@2@PAVExtensionConfiguration@2@V?$Handle@VObjectTemplate@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:346,name:'?New@Date@v8@@SA?AV?$Local@VValue@v8@@@2@N@Z'},{hint:347,name:'?New@External@v8@@SA?AV?$Local@VExternal@v8@@@2@PAX@Z'},{hint:348,name:'?New@FunctionTemplate@v8@@SA?AV?$Local@VFunctionTemplate@v8@@@2@P6A?AV?$Handle@VValue@v8@@@2@ABVArguments@2@@ZV42@V?$Handle@VSignature@v8@@@2@@Z'},{hint:349,name:'?New@Integer@v8@@SA?AV?$Local@VInteger@v8@@@2@H@Z'},{hint:350,name:'?New@Isolate@v8@@SAPAV12@XZ'},{hint:351,name:'?New@Number@v8@@SA?AV?$Local@VNumber@v8@@@2@N@Z'},{hint:352,name:'?New@NumberObject@v8@@SA?AV?$Local@VValue@v8@@@2@N@Z'},{hint:353,name:'?New@Object@v8@@SA?AV?$Local@VObject@v8@@@2@XZ'},{hint:354,name:'?New@ObjectTemplate@v8@@CA?AV?$Local@VObjectTemplate@v8@@@2@V?$Handle@VFunctionTemplate@v8@@@2@@Z'},{hint:355,name:'?New@ObjectTemplate@v8@@SA?AV?$Local@VObjectTemplate@v8@@@2@XZ'},{hint:356,name:'?New@RegExp@v8@@SA?AV?$Local@VRegExp@v8@@@2@V?$Handle@VString@v8@@@2@W4Flags@12@@Z'},{hint:357,name:'?New@Script@v8@@SA?AV?$Local@VScript@v8@@@2@V?$Handle@VString@v8@@@2@PAVScriptOrigin@2@PAVScriptData@2@0@Z'},{hint:358,name:'?New@Script@v8@@SA?AV?$Local@VScript@v8@@@2@V?$Handle@VString@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:359,name:'?New@ScriptData@v8@@SAPAV12@PBDH@Z'},{hint:360,name:'?New@Signature@v8@@SA?AV?$Local@VSignature@v8@@@2@V?$Handle@VFunctionTemplate@v8@@@2@HQAV42@@Z'},{hint:361,name:'?New@String@v8@@SA?AV?$Local@VString@v8@@@2@PBDH@Z'},{hint:362,name:'?New@String@v8@@SA?AV?$Local@VString@v8@@@2@PBGH@Z'},{hint:363,name:'?New@StringObject@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:364,name:'?New@TypeSwitch@v8@@SA?AV?$Local@VTypeSwitch@v8@@@2@HQAV?$Handle@VFunctionTemplate@v8@@@2@@Z'},{hint:365,name:'?New@TypeSwitch@v8@@SA?AV?$Local@VTypeSwitch@v8@@@2@V?$Handle@VFunctionTemplate@v8@@@2@@Z'},{hint:366,name:'?NewExternal@String@v8@@SA?AV?$Local@VString@v8@@@2@PAVExternalAsciiStringResource@12@@Z'},{hint:367,name:'?NewExternal@String@v8@@SA?AV?$Local@VString@v8@@@2@PAVExternalStringResource@12@@Z'},{hint:368,name:'?NewFromUnsigned@Integer@v8@@SA?AV?$Local@VInteger@v8@@@2@I@Z'},{hint:369,name:'?NewInstance@Function@v8@@QBE?AV?$Local@VObject@v8@@@2@HQAV?$Handle@VValue@v8@@@2@@Z'},{hint:370,name:'?NewInstance@Function@v8@@QBE?AV?$Local@VObject@v8@@@2@XZ'},{hint:371,name:'?NewInstance@ObjectTemplate@v8@@QAE?AV?$Local@VObject@v8@@@2@XZ'},{hint:372,name:'?NewSymbol@String@v8@@SA?AV?$Local@VString@v8@@@2@PBDH@Z'},{hint:373,name:'?NewUndetectable@String@v8@@SA?AV?$Local@VString@v8@@@2@PBDH@Z'},{hint:374,name:'?NewUndetectable@String@v8@@SA?AV?$Local@VString@v8@@@2@PBGH@Z'},{hint:375,name:'?Null@v8@@YA?AV?$Handle@VPrimitive@v8@@@1@XZ'},{hint:376,name:'?NumberOfHandles@HandleScope@v8@@SAHXZ'},{hint:377,name:'?NumberValue@Date@v8@@QBENXZ'},{hint:378,name:'?NumberValue@NumberObject@v8@@QBENXZ'},{hint:379,name:'?NumberValue@Value@v8@@QBENXZ'},{hint:380,name:'?ObjectProtoToString@Object@v8@@QAE?AV?$Local@VString@v8@@@2@XZ'},{hint:381,name:'?PauseProfiler@V8@v8@@SAXXZ'},{hint:382,name:'?PreCompile@ScriptData@v8@@SAPAV12@PBDH@Z'},{hint:383,name:'?PreCompile@ScriptData@v8@@SAPAV12@V?$Handle@VString@v8@@@2@@Z'},{hint:384,name:'?PrepareStressRun@Testing@v8@@SAXH@Z'},{hint:385,name:'?PrintCurrentStackTrace@Message@v8@@SAXPAU_iobuf@@@Z'},{hint:386,name:'?ProcessDebugMessages@Debug@v8@@SAXXZ'},{hint:387,name:'?PrototypeTemplate@FunctionTemplate@v8@@QAE?AV?$Local@VObjectTemplate@v8@@@2@XZ'},{hint:388,name:'?RangeError@Exception@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:389,name:'?RawClose@HandleScope@v8@@AAEPAPAVObject@internal@2@PAPAV342@@Z'},{hint:390,name:'?ReThrow@TryCatch@v8@@QAE?AV?$Handle@VValue@v8@@@2@XZ'},{hint:391,name:'?ReadOnlyPrototype@FunctionTemplate@v8@@QAEXXZ'},{hint:392,name:'?ReattachGlobal@Context@v8@@QAEXV?$Handle@VObject@v8@@@2@@Z'},{hint:393,name:'?ReferenceError@Exception@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:394,name:'?RegisterExtension@v8@@YAXPAVExtension@1@@Z'},{hint:395,name:'?RemoveGCEpilogueCallback@V8@v8@@SAXP6AXW4GCType@2@W4GCCallbackFlags@2@@Z@Z'},{hint:396,name:'?RemoveGCPrologueCallback@V8@v8@@SAXP6AXW4GCType@2@W4GCCallbackFlags@2@@Z@Z'},{hint:397,name:'?RemoveMemoryAllocationCallback@V8@v8@@SAXP6AXW4ObjectSpace@2@W4AllocationAction@2@H@Z@Z'},{hint:398,name:'?RemoveMessageListeners@V8@v8@@SAXP6AXV?$Handle@VMessage@v8@@@2@V?$Handle@VValue@v8@@@2@@Z@Z'},{hint:399,name:'?Reset@TryCatch@v8@@QAEXXZ'},{hint:400,name:'?ResumeProfiler@V8@v8@@SAXXZ'},{hint:401,name:'?Run@Script@v8@@QAE?AV?$Local@VValue@v8@@@2@XZ'},{hint:402,name:'?SendCommand@Debug@v8@@SAXPBGHPAVClientData@12@PAVIsolate@2@@Z'},{hint:403,name:'?Serialize@HeapSnapshot@v8@@QBEXPAVOutputStream@2@W4SerializationFormat@12@@Z'},{hint:404,name:'?Set@Object@v8@@QAE_NIV?$Handle@VValue@v8@@@2@@Z'},{hint:405,name:'?Set@Object@v8@@QAE_NV?$Handle@VValue@v8@@@2@0W4PropertyAttribute@2@@Z'},{hint:406,name:'?Set@Template@v8@@QAEXPBDV?$Handle@VData@v8@@@2@@Z'},{hint:407,name:'?Set@Template@v8@@QAEXV?$Handle@VString@v8@@@2@V?$Handle@VData@v8@@@2@W4PropertyAttribute@2@@Z'},{hint:408,name:'?SetAccessCheckCallbacks@ObjectTemplate@v8@@QAEXP6A_NV?$Local@VObject@v8@@@2@V?$Local@VValue@v8@@@2@W4AccessType@2@1@ZP6A_N0I21@ZV?$Handle@VValue@v8@@@2@_N@Z'},{hint:409,name:'?SetAccessor@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@P6A?AV?$Handle@VValue@v8@@@2@V?$Local@VString@v8@@@2@ABVAccessorInfo@2@@ZP6AX1V?$Local@VValue@v8@@@2@2@ZV42@W4AccessControl@2@W4PropertyAttribute@2@@Z'},{hint:410,name:'?SetAccessor@ObjectTemplate@v8@@QAEXV?$Handle@VString@v8@@@2@P6A?AV?$Handle@VValue@v8@@@2@V?$Local@VString@v8@@@2@ABVAccessorInfo@2@@ZP6AX1V?$Local@VValue@v8@@@2@2@ZV42@W4AccessControl@2@W4PropertyAttribute@2@@Z'},{hint:411,name:'?SetAddHistogramSampleFunction@V8@v8@@SAXP6AXPAXH@Z@Z'},{hint:412,name:'?SetAllowCodeGenerationFromStringsCallback@V8@v8@@SAXP6A_NV?$Local@VContext@v8@@@2@@Z@Z'},{hint:413,name:'?SetCallAsFunctionHandler@ObjectTemplate@v8@@QAEXP6A?AV?$Handle@VValue@v8@@@2@ABVArguments@2@@ZV32@@Z'},{hint:414,name:'?SetCallHandler@FunctionTemplate@v8@@QAEXP6A?AV?$Handle@VValue@v8@@@2@ABVArguments@2@@ZV32@@Z'},{hint:415,name:'?SetCaptureMessage@TryCatch@v8@@QAEX_N@Z'},{hint:416,name:'?SetCaptureStackTraceForUncaughtExceptions@V8@v8@@SAX_NHW4StackTraceOptions@StackTrace@2@@Z'},{hint:417,name:'?SetClassName@FunctionTemplate@v8@@QAEXV?$Handle@VString@v8@@@2@@Z'},{hint:418,name:'?SetCounterFunction@V8@v8@@SAXP6APAHPBD@Z@Z'},{hint:419,name:'?SetCreateHistogramFunction@V8@v8@@SAXP6APAXPBDHHI@Z@Z'},{hint:420,name:'?SetData@Context@v8@@QAEXV?$Handle@VString@v8@@@2@@Z'},{hint:421,name:'?SetData@Isolate@v8@@QAEXPAX@Z'},{hint:422,name:'?SetData@Script@v8@@QAEXV?$Handle@VString@v8@@@2@@Z'},{hint:423,name:'?SetDebugEventListener2@Debug@v8@@SA_NP6AXABVEventDetails@12@@ZV?$Handle@VValue@v8@@@2@@Z'},{hint:424,name:'?SetDebugEventListener@Debug@v8@@SA_NP6AXW4DebugEvent@2@V?$Handle@VObject@v8@@@2@1V?$Handle@VValue@v8@@@2@@Z2@Z'},{hint:425,name:'?SetDebugEventListener@Debug@v8@@SA_NV?$Handle@VObject@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:426,name:'?SetDebugMessageDispatchHandler@Debug@v8@@SAXP6AXXZ_N@Z'},{hint:427,name:'?SetDecompressedStartupData@V8@v8@@SAXPAVStartupData@2@@Z'},{hint:428,name:'?SetEntropySource@V8@v8@@SAXP6A_NPAEI@Z@Z'},{hint:429,name:'?SetFailedAccessCheckCallbackFunction@V8@v8@@SAXP6AXV?$Local@VObject@v8@@@2@W4AccessType@2@V?$Local@VValue@v8@@@2@@Z@Z'},{hint:430,name:'?SetFatalErrorHandler@V8@v8@@SAXP6AXPBD0@Z@Z'},{hint:431,name:'?SetFlagsFromCommandLine@V8@v8@@SAXPAHPAPAD_N@Z'},{hint:432,name:'?SetFlagsFromString@V8@v8@@SAXPBDH@Z'},{hint:433,name:'?SetGlobalGCEpilogueCallback@V8@v8@@SAXP6AXXZ@Z'},{hint:434,name:'?SetGlobalGCPrologueCallback@V8@v8@@SAXP6AXXZ@Z'},{hint:435,name:'?SetHiddenPrototype@FunctionTemplate@v8@@QAEX_N@Z'},{hint:436,name:'?SetHiddenValue@Object@v8@@QAE_NV?$Handle@VString@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:437,name:'?SetHostDispatchHandler@Debug@v8@@SAXP6AXXZH@Z'},{hint:438,name:'?SetIndexedInstancePropertyHandler@FunctionTemplate@v8@@AAEXP6A?AV?$Handle@VValue@v8@@@2@IABVAccessorInfo@2@@ZP6A?AV32@IV?$Local@VValue@v8@@@2@0@ZP6A?AV?$Handle@VInteger@v8@@@2@I0@ZP6A?AV?$Handle@VBoolean@v8@@@2@I0@ZP6A?AV?$Handle@VArray@v8@@@2@0@ZV32@@Z'},{hint:439,name:'?SetIndexedPropertiesToExternalArrayData@Object@v8@@QAEXPAXW4ExternalArrayType@2@H@Z'},{hint:440,name:'?SetIndexedPropertiesToPixelData@Object@v8@@QAEXPAEH@Z'},{hint:441,name:'?SetIndexedPropertyHandler@ObjectTemplate@v8@@QAEXP6A?AV?$Handle@VValue@v8@@@2@IABVAccessorInfo@2@@ZP6A?AV32@IV?$Local@VValue@v8@@@2@0@ZP6A?AV?$Handle@VInteger@v8@@@2@I0@ZP6A?AV?$Handle@VBoolean@v8@@@2@I0@ZP6A?AV?$Handle@VArray@v8@@@2@0@ZV32@@Z'},{hint:442,name:'?SetInstanceCallAsFunctionHandler@FunctionTemplate@v8@@AAEXP6A?AV?$Handle@VValue@v8@@@2@ABVArguments@2@@ZV32@@Z'},{hint:443,name:'?SetInternalField@Object@v8@@QAEXHV?$Handle@VValue@v8@@@2@@Z'},{hint:444,name:'?SetInternalFieldCount@ObjectTemplate@v8@@QAEXH@Z'},{hint:445,name:'?SetMessageHandler2@Debug@v8@@SAXP6AXABVMessage@12@@Z@Z'},{hint:446,name:'?SetMessageHandler@Debug@v8@@SAXP6AXPBGHPAVClientData@12@@Z_N@Z'},{hint:447,name:'?SetName@Function@v8@@QAEXV?$Handle@VString@v8@@@2@@Z'},{hint:448,name:'?SetNamedInstancePropertyHandler@FunctionTemplate@v8@@AAEXP6A?AV?$Handle@VValue@v8@@@2@V?$Local@VString@v8@@@2@ABVAccessorInfo@2@@ZP6A?AV32@0V?$Local@VValue@v8@@@2@1@ZP6A?AV?$Handle@VInteger@v8@@@2@01@ZP6A?AV?$Handle@VBoolean@v8@@@2@01@ZP6A?AV?$Handle@VArray@vd'},{hint:449,name:'?SetNamedPropertyHandler@ObjectTemplate@v8@@QAEXP6A?AV?$Handle@VValue@v8@@@2@V?$Local@VString@v8@@@2@ABVAccessorInfo@2@@ZP6A?AV32@0V?$Local@VValue@v8@@@2@1@ZP6A?AV?$Handle@VInteger@v8@@@2@01@ZP6A?AV?$Handle@VBoolean@v8@@@2@01@ZP6A?AV?$Handle@VArray@v8@@@2@1@ZVd'},{hint:450,name:'?SetPointerInInternalField@Object@v8@@QAEXHPAX@Z'},{hint:451,name:'?SetPrototype@Object@v8@@QAE_NV?$Handle@VValue@v8@@@2@@Z'},{hint:452,name:'?SetResourceConstraints@v8@@YA_NPAVResourceConstraints@1@@Z'},{hint:453,name:'?SetSecurityToken@Context@v8@@QAEXV?$Handle@VValue@v8@@@2@@Z'},{hint:454,name:'?SetStressRunType@Testing@v8@@SAXW4StressType@12@@Z'},{hint:455,name:'?SetVerbose@TryCatch@v8@@QAEX_N@Z'},{hint:456,name:'?SetWrapperClassId@V8@v8@@CAXPAPAVObject@internal@2@G@Z'},{hint:457,name:'?SlowGetPointerFromInternalField@Object@v8@@AAEPAXH@Z'},{hint:458,name:'?StackTrace@TryCatch@v8@@QBE?AV?$Local@VValue@v8@@@2@XZ'},{hint:459,name:'?StartPreemption@Locker@v8@@SAXH@Z'},{hint:460,name:'?StartProfiling@CpuProfiler@v8@@SAXV?$Handle@VString@v8@@@2@@Z'},{hint:461,name:'?StopPreemption@Locker@v8@@SAXXZ'},{hint:462,name:'?StopProfiling@CpuProfiler@v8@@SAPBVCpuProfile@2@V?$Handle@VString@v8@@@2@V?$Handle@VValue@v8@@@2@@Z'},{hint:463,name:'?StrictEquals@Value@v8@@QBE_NV?$Handle@VValue@v8@@@2@@Z'},{hint:464,name:'?StringValue@StringObject@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:465,name:'?SyntaxError@Exception@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:466,name:'?TakeSnapshot@HeapProfiler@v8@@SAPBVHeapSnapshot@2@V?$Handle@VString@v8@@@2@W4Type@32@PAVActivityControl@2@@Z'},{hint:467,name:'?TerminateExecution@V8@v8@@SAXH@Z'},{hint:468,name:'?TerminateExecution@V8@v8@@SAXPAVIsolate@2@@Z'},{hint:469,name:'?This@AccessorInfo@v8@@QBE?AV?$Local@VObject@v8@@@2@XZ'},{hint:470,name:'?ThrowException@v8@@YA?AV?$Handle@VValue@v8@@@1@V21@@Z'},{hint:471,name:'?ToArrayIndex@Value@v8@@QBE?AV?$Local@VUint32@v8@@@2@XZ'},{hint:472,name:'?ToBoolean@Value@v8@@QBE?AV?$Local@VBoolean@v8@@@2@XZ'},{hint:473,name:'?ToDetailString@Value@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:474,name:'?ToInt32@Value@v8@@QBE?AV?$Local@VInt32@v8@@@2@XZ'},{hint:475,name:'?ToInteger@Value@v8@@QBE?AV?$Local@VInteger@v8@@@2@XZ'},{hint:476,name:'?ToNumber@Value@v8@@QBE?AV?$Local@VNumber@v8@@@2@XZ'},{hint:477,name:'?ToObject@Value@v8@@QBE?AV?$Local@VObject@v8@@@2@XZ'},{hint:478,name:'?ToString@Value@v8@@QBE?AV?$Local@VString@v8@@@2@XZ'},{hint:479,name:'?ToUint32@Value@v8@@QBE?AV?$Local@VUint32@v8@@@2@XZ'},{hint:480,name:'?True@v8@@YA?AV?$Handle@VBoolean@v8@@@1@XZ'},{hint:481,name:'?TurnOnAccessCheck@Object@v8@@QAEXXZ'},{hint:482,name:'?TypeError@Exception@v8@@SA?AV?$Local@VValue@v8@@@2@V?$Handle@VString@v8@@@2@@Z'},{hint:483,name:'?Uint32Value@Value@v8@@QBEIXZ'},{hint:484,name:'?Undefined@v8@@YA?AV?$Handle@VPrimitive@v8@@@1@XZ'},{hint:485,name:'?UseDefaultSecurityToken@Context@v8@@QAEXXZ'},{hint:486,name:'?Utf8Length@String@v8@@QBEHXZ'},{hint:487,name:'?Value@Boolean@v8@@QBE_NXZ'},{hint:488,name:'?Value@External@v8@@QBEPAXXZ'},{hint:489,name:'?Value@Int32@v8@@QBEHXZ'},{hint:490,name:'?Value@Integer@v8@@QBE_JXZ'},{hint:491,name:'?Value@Number@v8@@QBENXZ'},{hint:492,name:'?Value@Uint32@v8@@QBEIXZ'},{hint:493,name:'?VerifyExternalStringResource@String@v8@@ABEXPAVExternalStringResource@12@@Z'},{hint:494,name:'?Wrap@External@v8@@SA?AV?$Local@VValue@v8@@@2@PAX@Z'},{hint:495,name:'?Write@String@v8@@QBEHPAGHHH@Z'},{hint:496,name:'?WriteAscii@String@v8@@QBEHPADHHH@Z'},{hint:497,name:'?WriteUtf8@String@v8@@QBEHPADHPAHH@Z'},{hint:498,name:'?active_@Locker@v8@@0_NA'},{hint:499,name:'?auto_enable@Extension@v8@@QAE_NXZ'},{hint:500,name:'?dependencies@Extension@v8@@QAEPAPBDXZ'},{hint:501,name:'?dependency_count@Extension@v8@@QAEHXZ'},{hint:502,name:'?heap_size_limit@HeapStatistics@v8@@QAEIXZ'},{hint:503,name:'?kLineOffsetNotFound@Function@v8@@2HB'},{hint:504,name:'?kNoColumnInfo@Message@v8@@2HB'},{hint:505,name:'?kNoLineNumberInfo@CpuProfileNode@v8@@2HB'},{hint:506,name:'?kNoLineNumberInfo@Message@v8@@2HB'},{hint:507,name:'?kPersistentHandleNoClassId@HeapProfiler@v8@@2GB'},{hint:508,name:'?length@AsciiValue@String@v8@@QBEHXZ'},{hint:509,name:'?length@Utf8Value@String@v8@@QBEHXZ'},{hint:510,name:'?length@Value@String@v8@@QBEHXZ'},{hint:511,name:'?match@TypeSwitch@v8@@QAEHV?$Handle@VValue@v8@@@2@@Z'},{hint:512,name:'?max_executable_size@ResourceConstraints@v8@@QAEHXZ'},{hint:513,name:'?max_old_space_size@ResourceConstraints@v8@@QBEHXZ'},{hint:514,name:'?max_young_space_size@ResourceConstraints@v8@@QBEHXZ'},{hint:515,name:'?name@Extension@v8@@QAEPBDXZ'},{hint:516,name:'?set_auto_enable@Extension@v8@@QAEX_N@Z'},{hint:517,name:'?set_heap_size_limit@HeapStatistics@v8@@AAEXI@Z'},{hint:518,name:'?set_max_executable_size@ResourceConstraints@v8@@QAEXH@Z'},{hint:519,name:'?set_max_old_space_size@ResourceConstraints@v8@@QAEXH@Z'},{hint:520,name:'?set_max_young_space_size@ResourceConstraints@v8@@QAEXH@Z'},{hint:521,name:'?set_stack_limit@ResourceConstraints@v8@@QAEXPAI@Z'},{hint:522,name:'?set_total_heap_size@HeapStatistics@v8@@AAEXI@Z'},{hint:523,name:'?set_total_heap_size_executable@HeapStatistics@v8@@AAEXI@Z'},{hint:524,name:'?set_used_heap_size@HeapStatistics@v8@@AAEXI@Z'},{hint:525,name:'?source@Extension@v8@@QAEPBDXZ'},{hint:526,name:'?stack_limit@ResourceConstraints@v8@@QBEPAIXZ'},{hint:527,name:'?total_heap_size@HeapStatistics@v8@@QAEIXZ'},{hint:528,name:'?total_heap_size_executable@HeapStatistics@v8@@QAEIXZ'},{hint:529,name:'?used_heap_size@HeapStatistics@v8@@QAEIXZ'}]}];
+// 为Number添加一个原型方法
+Number.prototype.toFormatString = function ( base,length ) {   // 转化为达到length长度的字符串，如果不够，则前补零(base为将要转换的进制数)
+    if (!base)
+        base = 16;
+    var temp = this.toString(base);
+    if (!length)
+        length = temp.length;
+    while (temp.length < length) {
+        temp = '0' + temp;
+    }
+    return temp.toUpperCase();
+}
+
+Date.prototype.toFormatString = function ( formatString ){
+    var year = this.getFullYear();
+    var month = this.getMonth() + 1;
+    var day = this.getDate();
+    var hour = this.getHours();
+    var minute = this.getMinutes();
+    var second = this.getSeconds();
+    
+    var str = '';
+    if ( !formatString )
+        formatString = 'y-m-d h:M:s';
+    for ( var i = 0 ; i < formatString.length ; i ++ ){
+        switch(formatString.charAt(i)){
+        case 'y':   str += Number(year).toFormatString(10,2);  break;
+        case 'm':   str += Number(month).toFormatString(10, 2); break;
+        case 'd':   str += Number(day).toFormatString(10, 2); break;
+        case 'h':   str += Number(hour).toFormatString(10, 2); break;
+        case 'M':   str += Number(minute).toFormatString(10, 2); break;
+        case 's':   str += Number(second).toFormatString(10, 2); break;
+        case '-':
+        case ':':
+        case ' ':
+            str += formatString.charAt(i);
+        }
+    }
+    return str;
+}
+
+
+// 取得节的开始地址和大小
+function SectionInfo(){};
+SectionInfo.prototype.sectionInfo = []; 
+SectionInfo.prototype.init = function(sectionData){
+    var data = sectionData ? sectionData : PESectionData;
+    for ( var i = 0 ; i < data.length ; i ++ ){
+        var section = data[i]['value'];
+        var va,fa,size;
+        for ( var j = 0 ; j < section.length ; j ++ ){
+            if ( section[j]['name'] == 'VirtualAddress' )
+                va = section[j]['value'];
+            if ( section[j]['name'] == 'SizeOfRawData' )
+                size = section[j]['value'];
+            if ( section[j]['name'] == 'PointerToRawData' )
+                fa = section[j]['value'];    
+        }
+        this.sectionInfo.push( { virtualAddress:va,size:size,fileAddress:fa } );
+    }
+}
+SectionInfo.prototype.rvaToFoa = function( rva ){
+	for( var i=0 ; i<this.sectionInfo.length ; i++){
+	    if ( rva >= this.sectionInfo[i]['virtualAddress'] && 
+	            rva <= this.sectionInfo[i]['virtualAddress'] + this.sectionInfo[i]['size'] )			
+			return rva-this.sectionInfo[i]['virtualAddress']+this.sectionInfo[i]['fileAddress'];
+	}
+    return -1;
+}
+
+var sectionInfo = new SectionInfo();
+sectionInfo.init();
+
+function transRVAToFoa(){
+    var value = document.getElementById('RVA').value;
+    document.getElementById('RVA').value = value.toUpperCase();
+    
+    var foa = sectionInfo.rvaToFoa( parseInt( value,16 ) );
+    document.getElementById('FOA').value = ( foa == -1 ) ? 'Can not found in Section' : '0x ' + foa.toFormatString(16);
+}
+function translateTimeStamp( timeStamp ){
+    var date = new Date( timeStamp * 1000 );
+    return date.toFormatString( 'y-m-d h:M:s' );
+}
+
+var headHeight = 30;
+var leftWidth = 280;
+
+window.onload = function (){   
+
+    var sectionTranslateDiv = document.createElement('div');
+    sectionTranslateDiv.id = 'TranslateDiv';
+    sectionTranslateDiv.innerHTML = '<div>'+ PEFilePath + '</div>';
+
+    var navigation = document.createElement('div');
+    navigation.id = 'Navigation';
+    navigation.style.width = leftWidth + 'px';
+    navigation.style.float = 'left';
+    navigation.innerHTML += '<div>' +
+                                '<label for="RVA">RVA：</label>' +
+                                '<input type="text" id="RVA" name="RVA" onkeyup="transRVAToFoa()">' +
+                            '</div>';
+    navigation.innerHTML += '<div style="margin-bottom:20px;">' +
+                                '<label for="FOA">FOA：</label>' +
+                                '<input type="text" id="FOA" name="FOA" readonly="readonly">' +
+                            '</div>';
+
+    var tableContainer = document.createElement('div');
+    tableContainer.id = 'TableDiv';
+    tableContainer.style.overflowY = 'scroll';
+    tableContainer.style.overflowX = 'hidden';
+
+    document.body.appendChild(sectionTranslateDiv);
+    document.body.appendChild(navigation);
+    document.body.appendChild(tableContainer);
+    
+    onResize();
+    window.onresize = onResize;
+    
+    for (var i = 0 ; i < PEBaseData.length ; i++)
+    {
+		showBaseData( PEBaseData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+    for (var i = 0 ; i < PESectionData.length ; i++)
+    {
+		showBaseData( PESectionData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+	if (PEImportData.length != 0)
+	{
+	    showImportData(PEImportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	if (PEExportData.length != 0)
+	{
+	    showExportData(PEExportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	
+	initNavigation();
+
+
+    function onResize(){
+        sectionTranslateDiv.style.width = window.innerWidth.toString() + 'px';
+        sectionTranslateDiv.style.height = headHeight+'px';
+        navigation.style.height = Number(window.innerHeight - headHeight).toString() + 'px';
+
+        tableContainer.style.width = '0px';
+        tableContainer.style.height = '0px';
+        tableContainer.style.display = 'none';
+
+        setTimeout(function () {
+            tableContainer.style.width = Number(window.innerWidth - 40 - leftWidth).toString() + 'px';
+            tableContainer.style.height = Number(window.innerHeight - headHeight - 40).toString() + 'px';
+            tableContainer.style.display = 'block';
+        }, 0);
+    }
+}
+function initNavigation() {
+    var tableDiv = document.getElementById('TableDiv');
+    var navigation = document.getElementById('Navigation');
+    var navi = [];
+    for (var i = 0 ; i < tableDiv.children.length ; i++)
+        if (tableDiv.children[i].tagName.toLowerCase() == 'table') {
+
+            var element = tableDiv.children[i].children[0];
+            var str = (element.title) ? element.title : element.innerHTML;
+            navi[str] = tableDiv.children[i];
+
+            var divNode = document.createElement('div');
+            divNode.appendChild(document.createTextNode(str));
+            navigation.appendChild(divNode);
+        }
+    navigation.onclick = function (event) {
+        var str = (event.srcElement.title) ? event.srcElement.title : event.srcElement.innerHTML;
+        navi[str] && navi[str].scrollIntoView();
+    }
+}
+
+function showBaseData(data,container){
+	var table = document.createElement('table');
+	container.appendChild( table );
+	
+	table.cellSpacing = 0;
+	table.width = '100%';
+	
+	// 标题
+	var caption = document.createElement('caption');
+    caption.appendChild(document.createTextNode( data['name'] )); 
+    caption.title = data['title'];
+
+	var tbody = document.createElement('tbody');
+
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	tbody.insertRow(0);		
+	
+	var row, cell;
+
+	var i,j;
+	for ( i = 0 ; i < data['value'].length ; i ++ ){
+	    row = tbody.insertRow();
+
+		j = 0 ;
+		for ( var prop in data['value'][i] ){
+		
+			var str = data['value'][i][prop];
+			
+			// 转换以value开头的字符串
+			var addr = prop.indexOf('value');
+			if ( addr >= 0 && (typeof str === 'number') ){
+			    var detail = prop.slice(5);
+			    var length = data['value'][i]['length'];
+			    if ( detail.length == 0 )
+			        str = '0x ' + parseInt(str, 10).toFormatString(16,length );
+	            else
+			        str = detail + '：' + '0x ' + parseInt(str, 10).toFormatString(16, length);
+			}
+			
+			// 定位 TimeDateStamp ， 转换时间戳为确定的时间
+			if ( prop == 'desc' && data['value'][i]['name'] == 'TimeDateStamp' ){
+			    str += '：' + translateTimeStamp( parseInt( data['value'][i]['value'],10 ) );
+			}
+			
+			j++;
+			row.insertCell().appendChild( document.createTextNode( str ) );
+		}
+		row.cells[row.cells.length-1].title = row.cells[ 0 ].innerHTML + '：' + row.cells[ 1 ].innerHTML;
+	}
+	
+	// 插入表头
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	var th4 = document.createElement('th');
+
+	th1.appendChild( document.createTextNode('属性名') );
+	th2.appendChild( document.createTextNode('属性值') );
+	th3.appendChild( document.createTextNode('变量长度') );
+	th4.appendChild( document.createTextNode('备注') );	
+    th1.width = '15%';
+    th2.width = Number((j-3)*15).toString() + '%';
+	th2.colSpan = Number(j-3).toString() ;
+	th3.width = '10%';
+	
+	tbody.rows[0].appendChild( th1 );
+	tbody.rows[0].appendChild( th2 );
+	tbody.rows[0].appendChild( th3 );
+	tbody.rows[0].appendChild( th4 );
+}		
+
+function showImportData(data,container){
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+	var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+	table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode( '导入表' )); 
+
+    container.appendChild( table );
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	var cell;
+	var row;
+
+	row = tbody.insertRow();
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	th1.appendChild(document.createTextNode('模块名'));
+	th2.appendChild(document.createTextNode('函数编号'));
+	th3.appendChild(document.createTextNode('函数名'));
+	row.appendChild(th1);
+	row.appendChild(th2);
+	row.appendChild(th3);
+
+
+	for (var i = 0 ; i < data.length ; i++) {
+	    var length = data[i]['value'].length;
+
+        row = tbody.insertRow();
+        cell = row.insertCell();
+        cell.rowSpan = length;
+	    cell.appendChild(document.createTextNode(data[i]['name']));
+	    
+	    var moduleName = data[i]['name'];
+
+	    for (var j = 0 ; j < length ; j++) {
+            if ( j != 0 )
+    	        row = tbody.insertRow();
+
+	        for (var prop in data[i]['value'][j]) {
+	            var str = data[i]['value'][j][prop];
+	            if (typeof str === 'number') {
+	                str = '0x ' + parseInt(str, 10).toFormatString(16);
+	            }
+	            row.insertCell().appendChild(document.createTextNode(str));
+	        }
+	        row.cells[row.cells.length - 1].title = moduleName;
+	    }
+	}
+}
+
+function showExportData(data, container) {
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+    var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+    table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode('导出表 : ' + data[0]['name']));
+
+    container.appendChild(table);
+    table.appendChild(caption);
+    table.appendChild(tbody);
+
+    var row;
+
+    row = tbody.insertRow();
+    var th1 = document.createElement('th');
+    var th2 = document.createElement('th');
+    th1.appendChild(document.createTextNode('函数编号'));
+    th2.appendChild(document.createTextNode('函数名'));
+    row.appendChild(th1);
+    row.appendChild(th2);
+
+    for (var i = 0 ; i < data[0]['value'].length ; i++) {
+        row = tbody.insertRow();
+
+        for (var prop in data[0]['value'][i]) {
+            var str = data[0]['value'][i][prop];
+            if (typeof str === 'number') {
+                str = '0x ' + parseInt(str, 10).toFormatString(16);
+            }
+            row.insertCell().appendChild(document.createTextNode(str));
+        }
+    }
+}
+</script>
+<head>
+<body>
+</body>
+</html>

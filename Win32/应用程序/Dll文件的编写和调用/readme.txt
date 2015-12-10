@@ -1,0 +1,5 @@
+temp为dll文件。在VC里面应该创建Win32 DynamicLink Library
+
+之后将dll文件复制到要调用dll文件的程序的文件夹下
+
+12为dll调用的实例

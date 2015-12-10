@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>body{
+	background-color:rgb(117, 123, 89);
+    color:rgb(0,255,34);
+	font-family:Î¢ÈíÑÅºÚ;
+	font-size:16px;
+	margin:0;
+	padding:0;
+}
+#Navigation div 
+{
+    line-height:30px;
+    padding-left:25px;
+    font-size:16px;
+    cursor:pointer;
+}
+#TranslateDiv div 
+{
+	height:30px;
+	line-height:30px;
+	width:100%;
+	text-align:center;
+}
+input[type="text"]
+{
+	width:180px;
+	font-family:Î¢ÈíÑÅºÚ;
+	font-weight: bold;
+}
+
+#TableDiv
+{
+    background-color:black;	
+	padding:20px;
+}
+
+table,tr,td,th {
+	border:1px rgb(130, 10, 0) solid;
+}
+caption 
+{
+	text-align:center;
+	font-size:18px;
+	color:rgb(0,255,3);
+}
+th
+{
+	text-align:center;
+	font-size:12px;
+	color:rgb(0,200,3);	
+	padding-top:8px;
+	padding-bottom:8px;
+}
+td{
+	color:rgb(0, 130, 3);
+	padding-top: 5px;
+	padding-bottom:5px;
+	padding-left:5px;
+}
+
+</style>
+<script>
+var PEFilePath = 'C:\\ProgramData\\icbc_data\\Temp\\UpdateService.exe';
+var PEBaseData = [{ name:'IMAGE_DOS_HEADER',title:'DOSÍ·',value:[{name:'e_magic',value:23117,length:2,desc:'EXE ±êÖ¾,MZ'},{name:'e_cblp',value:144,length:2,desc:'×îºó£¨²¿·Ö£©Ò³ÖĞµÄ×Ö½ÚÊı'},{name:'e_cp',value:3,length:2,desc:'ÎÄ¼şÖĞµÄÈ«²¿ºÍ²¿·ÖÒ³Êı'},{name:'e_crlc',value:0,length:2,desc:'ÖØ¶¨Î»±íÖĞµÄÖ¸ÕëÊı'},{name:'e_cparhdr',value:4,length:2,desc:'Í·²¿³ß´ç£¬ÒÔ¶ÎÂäÎªµ¥Î»'},{name:'e_minalloc',value:0,length:2,desc:'ËùĞèµÄ×îĞ¡¸½¼Ó¶Î'},{name:'e_maxalloc',value:65535,length:2,desc:'ËùĞèµÄ×î´ó¸½¼Ó¶Î'},{name:'e_ss',value:0,length:2,desc:'³õÊ¼µÄSSÖµ'},{name:'e_sp',value:184,length:2,desc:'³õÊ¼µÄSPÖµ'},{name:'e_csum',value:0,length:2,desc:'²¹ÂëĞ£ÑéÖµ'},{name:'e_ip',value:0,length:2,desc:'³õÊ¼µÄIPÖµ'},{name:'e_cs',value:0,length:2,desc:'³õÊ¼µÄCSÖµ'},{name:'e_lfarlc',value:64,length:2,desc:'ÖØ¶¨Î»±íµÄ×Ö½ÚÆ«ÒÆÁ¿'},{name:'e_ovno',value:0,length:2,desc:'¸²¸ÇºÅ'},{name:'e_res',value:"0000",length:8,desc:'±£Áô×Ö'},{name:'e_oemid',value:0,length:2,desc:'OEM±êÊ¾·û'},{name:'e_oeminfo',value:0,length:2,desc:'OEMĞÅÏ¢'},{name:'e_res2',value:"0000000000",length:20,desc:'±£Áô×Ö'},{name:'e_lfanew',value:256,length:4,desc:'PEÍ·Ïà¶ÔÓÚÎÄ¼ş¿ªÊ¼´¦µÄÆ«ÒÆµØÖ·'}]},{ name:'IMAGE_FILE_HEADER',title:'NT±ê×¼Í·',value:[{name:'Machine',value:34404,length:2,desc:'ÔËĞĞÆ½Ì¨£ºx64 ´¦ÀíÆ÷'},{name:'NumberOfSections',value:6,length:2,desc:'½ÚµÄÊıÁ¿£¨IMAGE_SECTION_HEADERµÄ¸öÊı£©'},{name:'TimeDateStamp',value:1406711708,length:4,desc:'ÎÄ¼ş´´½¨ÈÕÆÚºÍÊ±¼ä'},{name:'PointerToSymbolTable',value:0,length:4,desc:'Ö¸Ïò·ûºÅ±í£¨ÓÃÓÚµ÷ÊÔ£¬Ã»ÓĞÔòÎª0£©'},{name:'NumberOfSymbols',value:0,length:4,desc:'·ûºÅ±íÖĞµÄ·ûºÅÊıÁ¿£¨ÓÃÓÚµ÷ÊÔ£¬Ã»ÓĞÔòÎª0£©'},{name:'SizeOfOptionalHeader',value:240,length:2,desc:'À©Õ¹Í·½á¹¹µÄ³¤¶È£¨0x00E0 == 32Î»PEÎÄ¼ş£¬0x00F0 == 64Î»PEÎÄ¼ş£©'},{name:'Characteristics',value:34,length:2,desc:'ÎÄ¼şÊôĞÔ£ºÎÄ¼şÊÇ¿ÉÖ´ĞĞµÄ¡¢¿É´¦Àí2GBÒÔÉÏµØÖ·'}]},{ name:'IMAGE_OPTIONAL_HEADER::Base',title:'NTÀ©Õ¹Í·',value:[{name:'Magic',value:523,length:2,desc:'Ä§Êõ×Ö£¬ËµÃ÷ÎÄ¼şµÄÀàĞÍ(107H == ROM ¾µÏñ£»10BH == PE32£»20BH == PE64)'},{name:'MajorLinkerVersion',value:9,length:1,desc:'Á´½ÓÆ÷Ö÷°æ±¾ºÅ'},{name:'MinorLinkerVersion',value:0,length:1,desc:'Á´½ÓÆ÷¸±°æ±¾ºÅ'},{name:'SizeOfCode',value:600576,length:4,desc:'ËùÓĞº¬´úÂëµÄ½ÚµÄ×Ü´óĞ¡£¨»ùÓÚÎÄ¼ş¶ÔÆë£©'},{name:'SizeOfInitializedData',value:295424,length:4,desc:'ËùÓĞº¬ÒÑ³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡'},{name:'SizeOfUninitializedData',value:0,length:4,desc:'ËùÓĞº¬Î´³õÊ¼»¯Êı¾İµÄ½ÚµÄ×Ü´óĞ¡£¨ÔÚÎÄ¼şÖĞ²»Õ¼ÓÃ¿Õ¼ä£¬µ«ÊÇÔÚ±»¼ÓÔØµ½ÄÚ´æÖ®ºó£¬PE¼ÓÔØ³ÌĞò½«»áÎªÕâĞ©Êı¾İ·ÖÅäÊÊµ±µÄ¿Õ¼ä£©'},{name:'AddressOfEntryPoint',value:315044,length:4,desc:'³ÌĞòÖ´ĞĞÈë¿ÚRVA£¨¼ÇÂ¼ÁËÆô¶¯´úÂë¾àÀë¸ÃPE¼ÓÔØºóµÄÆğÊ¼Î»ÖÃµ½µ×¶àÉÙ¸ö×Ö½Ú¡£¶ÔÓÚ³ÌĞòÓ³Ïñ£¬ËüÊÇÆô¶¯µØÖ·£»¶ÔÓÚÉè±¸Çı¶¯³ÌĞò£¬ËüÊÇ³õÊ¼»¯º¯ÊıµÄµØÖ·£»¶ÔÓÚDLLÀ´Ëµ£¬ËüÊÇ¿ÉÑ¡µÄ£¬Èç¹û²»´æÔÚĞèÒªÉèÖÃÎª0£©'},{name:'BaseOfCode',value:4096,length:4,desc:'´úÂëµÄ½ÚµÄÆğÊ¼RVA£¨±íÊ¾Ó³Ïñ±»¼ÓÔØµ½ÄÚ´æÖĞºó£¬´úÂë½ÚµÄ¿ªÍ·Ïà¶ÔÓÚÓ³Ïñ»ùÖ·µÄÆ«ÒÆµØÖ·£©'},{name:'ImageBase',value:5368709120,length:8,desc:'PEÓ³ÏñµÄÓÅÏÈ×°ÈëµØÖ·£¨EXEÎÄ¼ş×ÜÊÇ¿ÉÒÔÒÔÕâ¸öÎ»ÖÃ×°Èë£»µ«ÊÇÈç¹ûÒ»¸ö³ÌĞòÒıÈëÁË¶à¸öDLLÎÄ¼ş£¬ÔòDLLÊµ¼Ê×°ÈëµØÖ·Óë¸ÃÖµ¿ÉÄÜ¾Í»á²»Í¬£»¸ÃÖµ±ØĞëÊÇ64KµÄÕûÊı±¶£©'},{name:'SectionAlignment',value:4096,length:4,desc:'ÄÚ´æÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È'},{name:'FileAlignment',value:512,length:4,desc:'ÎÄ¼şÖĞµÄ½ÚµÄ¶ÔÆëÁ£¶È'},{name:'MajorOperatingSystemVersion',value:5,length:2,desc:'²Ù×÷ÏµÍ³Ö÷°æ±¾ºÅ'},{name:'MinorOperatingSystemVersion',value:2,length:2,desc:'²Ù×÷ÏµÍ³¸±°æ±¾ºÅ'},{name:'MajorImageVersion',value:0,length:2,desc:'¸ÃPEÖ÷°æ±¾ºÅ'},{name:'MinorImageVersion',value:0,length:2,desc:'¸ÃPE¸±°æ±¾ºÅ'},{name:'MajorSubsystemVersion',value:5,length:2,desc:'ËùĞè×ÓÏµÍ³µÄÖ÷°æ±¾ºÅ'},{name:'MinorSubsystemVersion',value:2,length:2,desc:'ËùĞè×ÓÏµÍ³µÄ¸±°æ±¾ºÅ'},{name:'Win32VersionValue',value:'',length:4,desc:'×ÓÏµÍ³°æ±¾µÄÖµ£¨Î´ÓÃ£¬±ØĞëÉèÖÃÎª0£©'},{name:'SizeOfImage',value:937984,length:4,desc:'ÄÚ´æÖĞÕû¸öPEµÄÓ³Ïñ³ß´ç£¨¿ÉÒÔ±ÈÊµ¼ÊµÄÖµ´ó£¬µ«²»ÄÜ±ÈËüĞ¡£¬ÇÒ±ØĞë±£Ö¤ËüÊÇSectionAlignmentµÄÕûÊı±¶£©'},{name:'SizeOfHeaders',value:1024,length:4,desc:'ËùÓĞÍ·+½Ú±í°´ÕÕÎÄ¼ş¶ÔÆëÁ£¶È¶ÔÆëºóµÄ´óĞ¡'},{name:'CheckSum',value:897671,length:4,desc:'Ğ£ÑéºÍ£¨´ó¶àÊıPEÎÄ¼şÖĞ£¬¸ÃÖµÊÇ0£»µ«ÔÚÒ»Ğ©ÄÚºËÄ£Ê½µÄÇı¶¯³ÌĞòºÍÏµÍ³DLLÖĞ£¬Ëü±ØĞë´æÔÚÇÒÓĞĞ§£©'},{name:'Subsystem',value:2,length:2,desc:'Ö¸¶¨Ê¹ÓÃ½çÃæµÄ×ÓÏµÍ³£ºWindows Í¼ĞÎÓÃ»§½çÃæ'},{name:'DllCharacteristics',value:33088,length:2,desc:'DLLÎÄ¼şÌØĞÔ£¨²»ÊÇÕë¶ÔDLLÎÄ¼şµÄ£¬¶øÊÇÕë¶ÔËùÓĞPEÎÄ¼şµÄ£©£ºDLL¿ÉÒÔÔÚ¼ÓÔØÊ±±»ÖØ¶¨Î»¡¢¸ÃÓ³Ïñ¼æÈİDEP¡¢¿ÉÓÃÓÚÖÕ¶Ë·şÎñÆ÷'},{name:'SizeOfStackReserve',value:1048576,length:8,desc:'³õÊ¼»¯µÄÕ»´óĞ¡'},{name:'SizeOfStackCommit',value:4096,length:8,desc:'³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄÕ»´óĞ¡µÄÕ»´óĞ¡'},{name:'SizeOfHeapReserve',value:1048576,length:8,desc:'³õÊ¼»¯Ê±±£ÁôµÄ¶Ñ´óĞ¡'},{name:'SizeOfHeapCommit',value:4096,length:8,desc:'³õÊ¼»¯Ê±Êµ¼ÊÌá½»µÄ¶Ñ´óĞ¡'},{name:'LoaderFlags',value:0,length:4,desc:'¼ÓÔØ±êÖ¾'},{name:'NumberOfRvaAndSizes',value:16,length:4,desc:'Êı¾İÄ¿Â¼½á¹¹µÄÏîÄ¿ÊıÁ¿'}]},{ name:'IMAGE_OPTIONAL_HEADER::DATA_DIRECTORY',title:'Êı¾İÄ¿Â¼Ïî',value:[{name:'µ¼³ö±í(.edata)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'µ¼³ö±í(.edata)'},{name:'µ¼Èë±í(.idata)',valueRVA:787992,valueFOA:783384,valueTableSize:340,length:4,desc:'µ¼Èë±í(.idata)'},{name:'×ÊÔ´±í(.rsrc)',valueRVA:888832,valueFOA:852992,valueTableSize:26808,length:4,desc:'×ÊÔ´±í(.rsrc)'},{name:'Òì³£±í(.pdata)',valueRVA:847872,valueFOA:815104,valueTableSize:37656,length:4,desc:'Òì³£±í(.pdata)'},{name:'°²È«±í(ÎÄ¼şÆ«ÒÆ)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'°²È«±í(ÎÄ¼şÆ«ÒÆ)'},{name:'ÖØ¶¨Î»±í(.reloc)',valueRVA:917504,valueFOA:880128,valueTableSize:7056,length:4,desc:'ÖØ¶¨Î»±í(.reloc)'},{name:'µ÷ÊÔ±í(.debug)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'µ÷ÊÔ±í(.debug)'},{name:'°æÈ¨±í(±ØĞëÎª0)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'°æÈ¨±í(±ØĞëÎª0)'},{name:'È«¾ÖÖ¸Õë±í',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'È«¾ÖÖ¸Õë±í'},{name:'Ïß³Ì±¾µØ´æ´¢±í(.tls)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'Ïß³Ì±¾µØ´æ´¢±í(.tls)'},{name:'¼ÓÔØÅäÖÃ±í',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'¼ÓÔØÅäÖÃ±í'},{name:'°ó¶¨µ¼Èë±í',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'°ó¶¨µ¼Èë±í'},{name:'IAT±í',valueRVA:606208,valueFOA:601600,valueTableSize:3296,length:4,desc:'IAT±í'},{name:'ÑÓ³Ùµ¼Èë±í',valueRVA:787832,valueFOA:783224,valueTableSize:64,length:4,desc:'ÑÓ³Ùµ¼Èë±í'},{name:'CLR±í(.cormeta)',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'CLR±í(.cormeta)'},{name:'Ô¤ÁôÀàĞÍ',valueRVA:0,valueFOA:0,valueTableSize:0,length:4,desc:'Ô¤ÁôÀàĞÍ'}]}];
+var PESectionData = [{ name:'IMAGE_SECTION_HEADER[0]',title:'½Ú±í[0]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.text'},{name:'VirtualSize',value:600318,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:4096,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:600576,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:1024,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:1610612768,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]},{ name:'IMAGE_SECTION_HEADER[1]',title:'½Ú±í[1]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.rdata'},{name:'VirtualSize',value:192228,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:606208,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:192512,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:601600,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:1073741888,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]},{ name:'IMAGE_SECTION_HEADER[2]',title:'½Ú±í[2]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.data'},{name:'VirtualSize',value:47792,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:798720,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:20992,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:794112,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:3221225536,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]},{ name:'IMAGE_SECTION_HEADER[3]',title:'½Ú±í[3]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.pdata'},{name:'VirtualSize',value:37656,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:847872,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:37888,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:815104,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:1073741888,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]},{ name:'IMAGE_SECTION_HEADER[4]',title:'½Ú±í[4]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.rsrc'},{name:'VirtualSize',value:26808,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:888832,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:27136,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:852992,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:1073741888,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]},{ name:'IMAGE_SECTION_HEADER[5]',title:'½Ú±í[5]',value:[{name:'Name',value:13168292,length:8,desc:'8×Ö½Ú½ÚÃû£º.reloc'},{name:'VirtualSize',value:16588,length:4,desc:'½ÚµÄÊı¾İÔÚÃ»ÓĞ¶ÔÆëÇ°µÄÕæÊµ³ß´ç£¨µ«ÊÇºÜ¶àPEÎÄ¼şÖĞÕâ¸öÖµ¶¼²»×¼È·£©'},{name:'VirtualAddress',value:917504,length:4,desc:'½ÚÇøµÄRVAµØÖ·'},{name:'SizeOfRawData',value:16896,length:4,desc:'ÔÚÎÄ¼şÖĞ¶ÔÆëºóµÄ³ß´ç'},{name:'PointerToRawData',value:880128,length:4,desc:'ÔÚÎÄ¼şÖĞµÄÆ«ÒÆ'},{name:'PointerToRelocations',value:0,length:4,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'PointerToLinenumbers',value:0,length:4,desc:'ĞĞºÅ±íµÄÎ»ÖÃ£¨¹©µ÷ÊÔÓÃ£©'},{name:'NumberOfRelocations',value:0,length:2,desc:'ÔÚOBJÎÄ¼şÖĞÊ¹ÓÃ'},{name:'NumberOfLinenumbers',value:0,length:2,desc:'ĞĞºÅ±íÖĞĞĞºÅµÄÊıÁ¿'},{name:'Characteristics',value:1107296320,length:4,desc:'½ÚµÄÊôĞÔ£º½ÚÖĞ°üº¬´úÂë¡¢½ÚÖĞ°üº¬ÒÑ³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞ°üº¬Î´³õÊ¼»¯µÄÊı¾İ¡¢½ÚÖĞµÄÊı¾İÔÚ½ø³Ì¿ªÊ¼ºó½«±»¶ªÆú¡¢½ÚÖĞµÄÊı¾İ²»»á¾­¹ı»º´æ¡¢½ÚÖĞµÄÊı¾İ²»»á±»½»»»µ½´ÅÅÌ¡¢½ÚÖĞµÄÊı¾İ½«»á±»²»Í¬½ø³ÌËù¹²Ïí¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉÖ´ĞĞÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿É¶ÁÊôĞÔ¡¢Ó³Éäµ½ÄÚ´æºóµÄÒ³Ãæ°üº¬¿ÉĞ´ÊôĞÔ'}]}];
+var PEImportData = [{name:'WINMM.dll',value:[{hint:138,name:'timeGetTime'}]},{name:'KERNEL32.dll',value:[{hint:471,name:'GetFileTime'}]},{name:'USER32.dll',value:[{hint:507,name:'MessageBeep'}]},{name:'GDI32.dll',value:[{hint:471,name:'GetMapMode'}]},{name:'COMDLG32.dll',value:[{hint:10,name:'GetFileTitleW'}]},{name:'WINSPOOL.DRV',value:[{hint:78,name:'DocumentPropertiesW'}]},{name:'ADVAPI32.dll',value:[{hint:574,name:'RegDeleteKeyW'}]},{name:'SHELL32.dll',value:[{hint:7,name:'CommandLineToArgvW'}]},{name:'COMCTL32.dll',value:[{hint:123,name:'InitCommonControlsEx'}]},{name:'SHLWAPI.dll',value:[{hint:71,name:'PathFindExtensionW'}]},{name:'oledlg.dll',value:[{hint:3,name:'OleUIBusyW'}]},{name:'ole32.dll',value:[{hint:41,name:'CoGetClassObject'}]},{name:'OLEAUT32.dll',value:[{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'},{hint:23117,name:''},{hint:0,name:'ÎŞº¯ÊıÃû£¬°´ĞòºÅµ¼³ö'}]},{name:'PSAPI.DLL',value:[{hint:4,name:'EnumProcessModules'}]},{name:'WININET.dll',value:[{hint:158,name:'InternetReadFile'}]},{name:'VERSION.dll',value:[{hint:4,name:'GetFileVersionInfoSizeW'}]}];
+var PEExportData = [];
+// ÎªNumberÌí¼ÓÒ»¸öÔ­ĞÍ·½·¨
+Number.prototype.toFormatString = function ( base,length ) {   // ×ª»¯Îª´ïµ½length³¤¶ÈµÄ×Ö·û´®£¬Èç¹û²»¹»£¬ÔòÇ°²¹Áã(baseÎª½«Òª×ª»»µÄ½øÖÆÊı)
+    if (!base)
+        base = 16;
+    var temp = this.toString(base);
+    if (!length)
+        length = temp.length;
+    while (temp.length < length) {
+        temp = '0' + temp;
+    }
+    return temp.toUpperCase();
+}
+
+Date.prototype.toFormatString = function ( formatString ){
+    var year = this.getFullYear();
+    var month = this.getMonth() + 1;
+    var day = this.getDate();
+    var hour = this.getHours();
+    var minute = this.getMinutes();
+    var second = this.getSeconds();
+    
+    var str = '';
+    if ( !formatString )
+        formatString = 'y-m-d h:M:s';
+    for ( var i = 0 ; i < formatString.length ; i ++ ){
+        switch(formatString.charAt(i)){
+        case 'y':   str += Number(year).toFormatString(10,2);  break;
+        case 'm':   str += Number(month).toFormatString(10, 2); break;
+        case 'd':   str += Number(day).toFormatString(10, 2); break;
+        case 'h':   str += Number(hour).toFormatString(10, 2); break;
+        case 'M':   str += Number(minute).toFormatString(10, 2); break;
+        case 's':   str += Number(second).toFormatString(10, 2); break;
+        case '-':
+        case ':':
+        case ' ':
+            str += formatString.charAt(i);
+        }
+    }
+    return str;
+}
+
+
+// È¡µÃ½ÚµÄ¿ªÊ¼µØÖ·ºÍ´óĞ¡
+function SectionInfo(){};
+SectionInfo.prototype.sectionInfo = []; 
+SectionInfo.prototype.init = function(sectionData){
+    var data = sectionData ? sectionData : PESectionData;
+    for ( var i = 0 ; i < data.length ; i ++ ){
+        var section = data[i]['value'];
+        var va,fa,size;
+        for ( var j = 0 ; j < section.length ; j ++ ){
+            if ( section[j]['name'] == 'VirtualAddress' )
+                va = section[j]['value'];
+            if ( section[j]['name'] == 'SizeOfRawData' )
+                size = section[j]['value'];
+            if ( section[j]['name'] == 'PointerToRawData' )
+                fa = section[j]['value'];    
+        }
+        this.sectionInfo.push( { virtualAddress:va,size:size,fileAddress:fa } );
+    }
+}
+SectionInfo.prototype.rvaToFoa = function( rva ){
+	for( var i=0 ; i<this.sectionInfo.length ; i++){
+	    if ( rva >= this.sectionInfo[i]['virtualAddress'] && 
+	            rva <= this.sectionInfo[i]['virtualAddress'] + this.sectionInfo[i]['size'] )			
+			return rva-this.sectionInfo[i]['virtualAddress']+this.sectionInfo[i]['fileAddress'];
+	}
+    return -1;
+}
+
+var sectionInfo = new SectionInfo();
+sectionInfo.init();
+
+function transRVAToFoa(){
+    var value = document.getElementById('RVA').value;
+    document.getElementById('RVA').value = value.toUpperCase();
+    
+    var foa = sectionInfo.rvaToFoa( parseInt( value,16 ) );
+    document.getElementById('FOA').value = ( foa == -1 ) ? 'Can not found in Section' : '0x ' + foa.toFormatString(16);
+}
+function translateTimeStamp( timeStamp ){
+    var date = new Date( timeStamp * 1000 );
+    return date.toFormatString( 'y-m-d h:M:s' );
+}
+
+var headHeight = 30;
+var leftWidth = 280;
+
+window.onload = function (){   
+
+    var sectionTranslateDiv = document.createElement('div');
+    sectionTranslateDiv.id = 'TranslateDiv';
+    sectionTranslateDiv.innerHTML = '<div>'+ PEFilePath + '</div>';
+
+    var navigation = document.createElement('div');
+    navigation.id = 'Navigation';
+    navigation.style.width = leftWidth + 'px';
+    navigation.style.float = 'left';
+    navigation.innerHTML += '<div>' +
+                                '<label for="RVA">RVA£º</label>' +
+                                '<input type="text" id="RVA" name="RVA" onkeyup="transRVAToFoa()">' +
+                            '</div>';
+    navigation.innerHTML += '<div style="margin-bottom:20px;">' +
+                                '<label for="FOA">FOA£º</label>' +
+                                '<input type="text" id="FOA" name="FOA" readonly="readonly">' +
+                            '</div>';
+
+    var tableContainer = document.createElement('div');
+    tableContainer.id = 'TableDiv';
+    tableContainer.style.overflowY = 'scroll';
+    tableContainer.style.overflowX = 'hidden';
+
+    document.body.appendChild(sectionTranslateDiv);
+    document.body.appendChild(navigation);
+    document.body.appendChild(tableContainer);
+    
+    onResize();
+    window.onresize = onResize;
+    
+    for (var i = 0 ; i < PEBaseData.length ; i++)
+    {
+		showBaseData( PEBaseData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+    for (var i = 0 ; i < PESectionData.length ; i++)
+    {
+		showBaseData( PESectionData[i],tableContainer );
+		tableContainer.appendChild( document.createElement('br') );
+		tableContainer.appendChild( document.createElement('br') );
+	}
+	if (PEImportData.length != 0)
+	{
+	    showImportData(PEImportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	if (PEExportData.length != 0)
+	{
+	    showExportData(PEExportData, tableContainer);
+	    tableContainer.appendChild(document.createElement('br'));
+	    tableContainer.appendChild(document.createElement('br'));
+	}
+	
+	initNavigation();
+
+
+    function onResize(){
+        sectionTranslateDiv.style.width = window.innerWidth.toString() + 'px';
+        sectionTranslateDiv.style.height = headHeight+'px';
+        navigation.style.height = Number(window.innerHeight - headHeight).toString() + 'px';
+
+        tableContainer.style.width = '0px';
+        tableContainer.style.height = '0px';
+        tableContainer.style.display = 'none';
+
+        setTimeout(function () {
+            tableContainer.style.width = Number(window.innerWidth - 40 - leftWidth).toString() + 'px';
+            tableContainer.style.height = Number(window.innerHeight - headHeight - 40).toString() + 'px';
+            tableContainer.style.display = 'block';
+        }, 0);
+    }
+}
+function initNavigation() {
+    var tableDiv = document.getElementById('TableDiv');
+    var navigation = document.getElementById('Navigation');
+    var navi = [];
+    for (var i = 0 ; i < tableDiv.children.length ; i++)
+        if (tableDiv.children[i].tagName.toLowerCase() == 'table') {
+
+            var element = tableDiv.children[i].children[0];
+            var str = (element.title) ? element.title : element.innerHTML;
+            navi[str] = tableDiv.children[i];
+
+            var divNode = document.createElement('div');
+            divNode.appendChild(document.createTextNode(str));
+            navigation.appendChild(divNode);
+        }
+    navigation.onclick = function (event) {
+        var str = (event.srcElement.title) ? event.srcElement.title : event.srcElement.innerHTML;
+        navi[str] && navi[str].scrollIntoView();
+    }
+}
+
+function showBaseData(data,container){
+	var table = document.createElement('table');
+	container.appendChild( table );
+	
+	table.cellSpacing = 0;
+	table.width = '100%';
+	
+	// ±êÌâ
+	var caption = document.createElement('caption');
+    caption.appendChild(document.createTextNode( data['name'] )); 
+    caption.title = data['title'];
+
+	var tbody = document.createElement('tbody');
+
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	tbody.insertRow(0);		
+	
+	var row, cell;
+
+	var i,j;
+	for ( i = 0 ; i < data['value'].length ; i ++ ){
+	    row = tbody.insertRow();
+
+		j = 0 ;
+		for ( var prop in data['value'][i] ){
+		
+			var str = data['value'][i][prop];
+			
+			// ×ª»»ÒÔvalue¿ªÍ·µÄ×Ö·û´®
+			var addr = prop.indexOf('value');
+			if ( addr >= 0 && (typeof str === 'number') ){
+			    var detail = prop.slice(5);
+			    var length = data['value'][i]['length'];
+			    if ( detail.length == 0 )
+			        str = '0x ' + parseInt(str, 10).toFormatString(16,length );
+	            else
+			        str = detail + '£º' + '0x ' + parseInt(str, 10).toFormatString(16, length);
+			}
+			
+			// ¶¨Î» TimeDateStamp £¬ ×ª»»Ê±¼ä´ÁÎªÈ·¶¨µÄÊ±¼ä
+			if ( prop == 'desc' && data['value'][i]['name'] == 'TimeDateStamp' ){
+			    str += '£º' + translateTimeStamp( parseInt( data['value'][i]['value'],10 ) );
+			}
+			
+			j++;
+			row.insertCell().appendChild( document.createTextNode( str ) );
+		}
+		row.cells[row.cells.length-1].title = row.cells[ 0 ].innerHTML + '£º' + row.cells[ 1 ].innerHTML;
+	}
+	
+	// ²åÈë±íÍ·
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	var th4 = document.createElement('th');
+
+	th1.appendChild( document.createTextNode('ÊôĞÔÃû') );
+	th2.appendChild( document.createTextNode('ÊôĞÔÖµ') );
+	th3.appendChild( document.createTextNode('±äÁ¿³¤¶È') );
+	th4.appendChild( document.createTextNode('±¸×¢') );	
+    th1.width = '15%';
+    th2.width = Number((j-3)*15).toString() + '%';
+	th2.colSpan = Number(j-3).toString() ;
+	th3.width = '10%';
+	
+	tbody.rows[0].appendChild( th1 );
+	tbody.rows[0].appendChild( th2 );
+	tbody.rows[0].appendChild( th3 );
+	tbody.rows[0].appendChild( th4 );
+}		
+
+function showImportData(data,container){
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+	var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+	table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode( 'µ¼Èë±í' )); 
+
+    container.appendChild( table );
+	table.appendChild(caption);	
+	table.appendChild( tbody );
+	
+	var cell;
+	var row;
+
+	row = tbody.insertRow();
+	var th1 = document.createElement('th');
+	var th2 = document.createElement('th');
+	var th3 = document.createElement('th');
+	th1.appendChild(document.createTextNode('Ä£¿éÃû'));
+	th2.appendChild(document.createTextNode('º¯Êı±àºÅ'));
+	th3.appendChild(document.createTextNode('º¯ÊıÃû'));
+	row.appendChild(th1);
+	row.appendChild(th2);
+	row.appendChild(th3);
+
+
+	for (var i = 0 ; i < data.length ; i++) {
+	    var length = data[i]['value'].length;
+
+        row = tbody.insertRow();
+        cell = row.insertCell();
+        cell.rowSpan = length;
+	    cell.appendChild(document.createTextNode(data[i]['name']));
+	    
+	    var moduleName = data[i]['name'];
+
+	    for (var j = 0 ; j < length ; j++) {
+            if ( j != 0 )
+    	        row = tbody.insertRow();
+
+	        for (var prop in data[i]['value'][j]) {
+	            var str = data[i]['value'][j][prop];
+	            if (typeof str === 'number') {
+	                str = '0x ' + parseInt(str, 10).toFormatString(16);
+	            }
+	            row.insertCell().appendChild(document.createTextNode(str));
+	        }
+	        row.cells[row.cells.length - 1].title = moduleName;
+	    }
+	}
+}
+
+function showExportData(data, container) {
+    var table = document.createElement('table');
+    var caption = document.createElement('caption');
+    var tbody = document.createElement('tbody');
+
+    table.width = '100%';
+    table.cellSpacing = 0;
+    caption.appendChild(document.createTextNode('µ¼³ö±í : ' + data[0]['name']));
+
+    container.appendChild(table);
+    table.appendChild(caption);
+    table.appendChild(tbody);
+
+    var row;
+
+    row = tbody.insertRow();
+    var th1 = document.createElement('th');
+    var th2 = document.createElement('th');
+    th1.appendChild(document.createTextNode('º¯Êı±àºÅ'));
+    th2.appendChild(document.createTextNode('º¯ÊıÃû'));
+    row.appendChild(th1);
+    row.appendChild(th2);
+
+    for (var i = 0 ; i < data[0]['value'].length ; i++) {
+        row = tbody.insertRow();
+
+        for (var prop in data[0]['value'][i]) {
+            var str = data[0]['value'][i][prop];
+            if (typeof str === 'number') {
+                str = '0x ' + parseInt(str, 10).toFormatString(16);
+            }
+            row.insertCell().appendChild(document.createTextNode(str));
+        }
+    }
+}
+</script>
+<head>
+<body>
+</body>
+</html>

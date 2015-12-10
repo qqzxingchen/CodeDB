@@ -1,0 +1,126 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Chinese (中国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+MDIMENUINIT MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "New Hello",                  IDM_FILE_NEWHELLO
+        MENUITEM "New Rectangle",              IDM_FILE_NEWRECT
+        MENUITEM SEPARATOR
+        MENUITEM "Exit",                      IDM_APP_EXIT
+    END
+END
+
+MDIMENUHELLO MENU DISCARDABLE 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "New Hello",                  IDM_FILE_NEWHELLO
+        MENUITEM "New Rectangle",              IDM_FILE_NEWRECT
+        MENUITEM "CLOSE",IDM_FILE_CLOSE
+		MENUITEM SEPARATOR
+        MENUITEM "Exit",                      IDM_APP_EXIT
+    END
+	POPUP "COLOR"
+	BEGIN
+		MENUITEM "Black",IDM_COLOR_BLACK
+		MENUITEM "Red",IDM_COLOR_RED
+		MENUITEM "Green",IDM_COLOR_GREEN
+		MENUITEM "Blue",IDM_COLOR_BLUE
+		MENUITEM "White",IDM_COLOR_WHITE
+	END
+	POPUP "Window"
+	BEGIN
+		MENUITEM "Cascade",IDM_WINDOW_CASCADE
+		MENUITEM "Title",IDM_WINDOW_TILE
+		MENUITEM "Arrange Icon",IDM_WINDOW_ARRANGE
+		MENUITEM "Close All",IDM_WINDOW_CLOSEALL
+	END
+END
+
+MDIMENURECT MENU DISCARDABLE 
+BEGIN
+    POPUP "File"
+    BEGIN
+        MENUITEM "New Hello",                  IDM_FILE_NEWHELLO
+        MENUITEM "New Rectangle",              IDM_FILE_NEWRECT
+        MENUITEM "CLOSE",IDM_FILE_CLOSE
+		MENUITEM SEPARATOR
+        MENUITEM "Exit",                      IDM_APP_EXIT
+    END
+	POPUP "Window"
+	BEGIN
+		MENUITEM "Cascade",IDM_WINDOW_CASCADE
+		MENUITEM "Title",IDM_WINDOW_TILE
+		MENUITEM "Arrange Icon",IDM_WINDOW_ARRANGE
+		MENUITEM "Close All",IDM_WINDOW_CLOSEALL
+	END
+END
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // Chinese (中国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

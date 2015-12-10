@@ -1,0 +1,48 @@
+ HelloDDK
+
+ Timestamp is 5340c234 (Sun Apr 06 10:55:48 2014)
+
+ Preferred load address is 00010000
+
+ Start         Length     Name                   Class
+ 0001:00000000 0000002aH .text                   CODE
+ 0002:00000000 00000020H .idata$5                DATA
+ 0002:00000020 000000dbH .rdata                  DATA
+ 0002:000000fc 00000074H .rdata$debug            DATA
+ 0003:00000000 000000bcH PAGE                    CODE
+ 0004:00000000 00000134H INIT                    CODE
+ 0004:00000134 00000014H .idata$2                CODE
+ 0004:00000148 00000014H .idata$3                CODE
+ 0004:0000015c 00000020H .idata$4                CODE
+ 0004:0000017c 0000009cH .idata$6                CODE
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   00000000     <absolute>
+ 0001:00000000       _DbgPrint                  00011000 f   ntoskrnl:ntoskrnl.exe
+ 0001:00000006       _IoDeleteDevice@4          00011006 f   ntoskrnl:ntoskrnl.exe
+ 0001:0000000c       _IoCreateSymbolicLink@8    0001100c f   ntoskrnl:ntoskrnl.exe
+ 0001:00000012       _IoCreateDevice@28         00011012 f   ntoskrnl:ntoskrnl.exe
+ 0001:00000018       _RtlInitUnicodeString@8    00011018 f   ntoskrnl:ntoskrnl.exe
+ 0001:0000001e       _IoDeleteSymbolicLink@4    0001101e f   ntoskrnl:ntoskrnl.exe
+ 0001:00000024       @IofCompleteRequest@8      00011024 f   ntoskrnl:ntoskrnl.exe
+ 0002:00000000       __imp__IoDeleteDevice@4    00012000     ntoskrnl:ntoskrnl.exe
+ 0002:00000004       __imp__IoCreateSymbolicLink@8 00012004     ntoskrnl:ntoskrnl.exe
+ 0002:00000008       __imp__IoCreateDevice@28   00012008     ntoskrnl:ntoskrnl.exe
+ 0002:0000000c       __imp__RtlInitUnicodeString@8 0001200c     ntoskrnl:ntoskrnl.exe
+ 0002:00000010       __imp__IoDeleteSymbolicLink@4 00012010     ntoskrnl:ntoskrnl.exe
+ 0002:00000014       __imp_@IofCompleteRequest@8 00012014     ntoskrnl:ntoskrnl.exe
+ 0002:00000018       __imp__DbgPrint            00012018     ntoskrnl:ntoskrnl.exe
+ 0002:0000001c       \177ntoskrnl_NULL_THUNK_DATA 0001201c     ntoskrnl:ntoskrnl.exe
+ 0003:00000000       ?HelloDDKUnload@@YGXPAU_DRIVER_OBJECT@@@Z 00013000 f   Driver.obj
+ 0003:00000070       ?HelloDDKDispatchRoutine@@YGJPAU_DEVICE_OBJECT@@PAU_IRP@@@Z 00013070 f   Driver.obj
+ 0004:00000000       _DriverEntry@8             00014000 f   Driver.obj
+ 0004:00000070       ?CreateDevice@@YGJPAU_DRIVER_OBJECT@@@Z 00014070 f   Driver.obj
+ 0004:00000134       __IMPORT_DESCRIPTOR_ntoskrnl 00014134     ntoskrnl:ntoskrnl.exe
+ 0004:00000148       __NULL_IMPORT_DESCRIPTOR   00014148     ntoskrnl:ntoskrnl.exe
+
+ entry point at        0000:00000000
+
+ Static symbols
+
